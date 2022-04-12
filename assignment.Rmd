@@ -1,0 +1,212 @@
+---
+title: "Group Assignment 1"
+author: "Alex Wong, Chelaka Paranahewa, Harjot Channa, Jonas Tiong"
+output: pdf_document
+output:
+  bookdown::pdf_book: null
+  fig_width: 8
+  toc: yes
+  theme: readable
+  number_sections: no
+  fig_height: 5
+  pdf_document: default
+---
+
+```{r setup, ,echo = FALSE, include = FALSE, warning=FALSE,error=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE,error=FALSE, message = FALSE)
+```
+
+```{r,echo = FALSE, include = FALSE}
+
+library(tidyverse)
+library(dplyr)
+library(broom)
+library(tidymodels)
+library(knitr)
+library(psych)
+```
+
+```{r importing data, echo = FALSE, include = FALSE, warning=FALSE, error=FALSE}
+dat <- read_csv("data_q1_ass1_s1_22.csv")
+
+```
+
+#Question 1
+
+##1.a.
+
+(i) Histogram of logsal
+
+```{r, warning=FALSE, error=FALSE}
+dat %>% ggplot(aes(x = logsal)) + 
+  geom_histogram(aes(y = after_stat(density)),
+                 bins = 20) + 
+  geom_density() + 
+  labs(
+    x = "logsal",
+    y = "Density",
+    title = "Histogram of logsal"
+  )
+  
+```
+
+(ii) analysis
+```{r}
+logsal_stat <- dat$logsal %>% 
+  describe() %>% 
+  as.tibble() %>% 
+  select(c(n, mean, median, min, max, sd, skew, kurtosis))
+
+kable(logsal_stat)
+```
+
+##1.b.
+
+(i) scatterplot
+```{r, warning = FALSE, error = FALSE}
+dat %>% ggplot(aes(x = race, y = logsal)) + 
+  geom_point() +
+  labs(x = "race",
+       y = "logsal",
+       title = "logsal v race")
+```
+
+
+
+##1.c.
+
+(i)
+
+$ \hat{logsal} = \underset{(0.020)}{10.396} - \underset{(0.043)}{0.180} \ race$
+
+(ii)
+
+```{r, warning = FALSE, error = FALSE}
+# OLS regression
+fit1 <- lm(logsal ~ race, data = dat)
+fit1 %>% summary()
+
+# level of significance
+alpha <- 0.05
+
+# test statistic
+tstat1 <- coef(summary(fit1))[2, "Estimate"] / 
+  coef(summary(fit1))[2, "Std. Error"]
+
+# critical value under the null
+tcrit1 <- qt(alpha/2, 472)
+
+# decision
+abs(tstat1) > (tcrit1)
+#make something that says reject H0
+```
+
+We conclude at the 0.05 level of significance that race has no effect on (the 
+log of) an individual's annual salary in favour of the alternative hypothesis 
+race has an effect.
+
+(iii)
+
+$\hat{\beta_{1}}$ measures the average difference in the log of an individual's 
+annual wage (thus proportionate difference) between someone who belongs to an 
+ethnic minority and someone who does not.
+
+Hence, the average difference, according to our model, in an individual's 
+annual wage between someone who belongs to an ethnic minority is $e^{-0.180}$ 
+times the annual salary of someone who does not belong to an ethnic minority.
+
+(iv)
+
+This model does not provide conclusive evidence of racial discrimination in 
+salaries paid by the bank. This is because it does not account for (condition 
+on) confounding variables - variables that causally effect an individual's 
+annual salary and whether or not they belong to an ethnic minority. For 
+example, an individual's level of education may a variable of 
+interest; the individual may be an immigrant to which US' immigration 
+policy and its skill stream for accepting immigrants (based on education) may 
+decide whether or not someone (in America) belongs to an ethnic minority. And, 
+for an individual's annual salary, may be effected by if the company values (and 
+thus willing to pay wages that are higher) for someone based on the education 
+that they have. 
+
+(v) As the coefficient of determination is 0.035, this means that around 3.5 
+per cent of the sample variation in the log of an individual's annual salary 
+is explained by race (being part of a ethnic minority or not) in this bank. 
+Hence, this model is a very low fit for describing what variables effect 
+an individual's annual salary, where the remaining 96.5 per cent may be caused 
+be unaccounted for variables like education (as aforementioned) or inherent 
+variability. 
+
+```{r, warning = FALSE, error = FALSE}
+
+SSR1 <- sum(resid(fit1)^2)
+SST1 <- sum((dat$logsal - mean(dat$logsal))^2)
+
+R2_1 <- 1 - (SSR1)/SST1
+R2_1
+
+# summary(fit1)$r.squared
+```
+
+(vi)
+
+$\beta_{0}$ measures the conditional mean of the log of an individual's annual 
+salary in this bank for one who does not belong to an ethnic minority. This 
+value is 10.396. Hence, this means that the conditional mean of an individual's 
+annual salary  for one who does not belong to an ethnic minority is $e^{10.396}$.
+
+(vii)
+
+```{r, warning = FALSE, error = FALSE}
+LB1 <- coef(summary(fit1))[1, "Estimate"] - 
+  coef(summary(fit1))[1, "Std. Error"] * qt(1 - alpha/2, 472)
+
+UP1 <- coef(summary(fit1))[1, "Estimate"] + 
+  coef(summary(fit1))[1, "Std. Error"] * qt(1 - alpha/2, 472)
+
+confint1 <- cbind(LB1, UP1) %>% 
+  as.tibble() %>% 
+  rename("2.5 %" = LB1,
+         "97.5 %" = UP1)
+confint1
+
+#confint(fit1, level = 0.95)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##1.d.
+
+```{r, warning = FALSE, error = FALSE}
+
+fit2 <- lm(logsal ~ educ + logsal + gender + race + jobcat, data = dat)
+fit2 %>% summary()
+```
+
+```{r, warning = FALSE, error = FALSE}
+
+fit3 <- lm(logsal ~ educ + logsal + gender + race + jobcat + race*gender, 
+           data = dat)
+fit3 %>% summary()
+```
+
