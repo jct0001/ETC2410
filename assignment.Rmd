@@ -169,7 +169,8 @@ confint1 <- cbind(LB1, UP1) %>%
   as.tibble() %>% 
   rename("2.5 %" = LB1,
          "97.5 %" = UP1)
-confint1
+
+confint1 %>% kable()
 
 #confint(fit1, level = 0.95)
 ```
