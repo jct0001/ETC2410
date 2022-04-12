@@ -32,7 +32,6 @@ dat <- read_csv("data_q1_ass1_s1_22.csv")
 
 ```
 
-test ~ Chelaka
 
 #Question 1
 
