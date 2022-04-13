@@ -338,40 +338,28 @@ $$
 #### (iii)
 Given the null hypothesis that the average `logsal` of population A is equal to that of population B $\mathbb{E}[logsal \mid educ = 12, gender = 0, race = 1, jobcat = 3, logssal] = \mathbb{E}[logsal \mid educ = 11, gender = 1, race = 0, jobcat = 3, logssal]$, it follows that:
 
-$\mathbb{E}[logsal \mid educ = 12, gender = 0, race = 1, jobcat = 3, logssal] - \mathbb{E}[logsal \mid educ = 11, gender = 1, race = 0, jobcat = 3, logssal] = 0$
+\begin{eqnarray}
+\mathbb{E}[logsal \mid educ = 12, gender = 0, race = 1, jobcat = 3, logssal] - \mathbb{E}[logsal \mid educ = 11, gender = 1, race = 0, jobcat = 3, logssal] &=& 0 \\
 
-$ (\beta_{0} + 12\beta_{1} + \beta_{4} + 3\beta_{5}) + \beta_{2} \ logssal - (\beta_{0} + 11\beta_{1} + \beta_{3} + 3\beta_{5}) - \beta_{2} \ logssal = \beta_{1} + \beta_{4} - \beta_{3} = 0$
-
+(\beta_{0} + 12\beta_{1} + \beta_{4} + 3\beta_{5}) + \beta_{2} \ logssal - (\beta_{0} + 11\beta_{1} + \beta_{3} + 3\beta_{5}) - \beta_{2} \ logssal = \beta_{1} + \beta_{4} - \beta_{3} = 0
+\end{eqnarray}
 So, the restriction that follows from the null hypothesis is that $\beta_{1} + \beta_{4} = \beta_{3}$. The negation of this statement is that $\beta_{1} + \beta_{4} \neq \beta_{3}$ which is the alternative hypothesis, where the average `logsal` of population A is not equal to that of population B.
 
 #### (iv)
 
 Under the null hypothesis, $\beta_{1} + \beta_{4} = \beta_{3}$. So, rearranging to get $\beta_{1} = \beta_{3} - \beta_{4}$ we can substitute this into our unrestricted model (the population model):
 
-$$
-\mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + 
-\beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race 
-+ \beta_{5} \ jobcat
-$$
+\begin{eqnarray}
+\mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] &=& \beta_{0} + 
+\beta_{1} educ + \beta_{2} logssal + \beta_{3} gender + \beta_{4} race + 
+\beta_{5} jobcat \\
 
-to get:
+&=& \beta_{0} + (\beta_{3} - \beta_{4}) \ educ + \beta_{2} logssal + \beta_{3} gender + \beta_{4} race + \beta_{5} jobcat \\
 
-$$
-\beta_{0} + (\beta_{3} - \beta_{4}) \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat
+&=& \beta_{0} + \beta_{3} \ educ - \beta_{4} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} race + \beta_{5} jobcat \\
+&=& \beta_{0} + \beta_{2}(educ + logssal) + \beta_{3} gender + \beta_{4}(race - educ) + \beta_{5} jobcat \\
+\end{eqnarray}
 
-\\ 
-
-= \beta_{0} + \beta_{3} \ educ - \beta_{4} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat
-
-\\
-
-= \beta_{0} + \beta_{2}(educ \ + \ logssal) + \beta_{3} \ gender + \beta_{4}(race \ - \ educ) + \beta_{5} \ jobcat
-$$
-let $U = educ + logssal$  and $V = race - educ$, so
-
-$$
-\beta_{0} + \beta_{2}U + \beta_{3} \ gender + \beta_{4}V + \beta_{5} \ jobcat
-$$
 This expression is our restricted model. We will use these two models for our F-test when we come to test the null hypothesis that $\beta_{1} + \beta_{4} = \beta_{3}$ against the alternative hypothesis that $\beta_{1} + \beta_{4} \neq \beta_{3}$, that the two populations A and B do not have the same average `logsal`.
 
 #### (v)
