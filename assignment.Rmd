@@ -24,7 +24,6 @@ library(car)
 
 ```{r importing data, echo = FALSE, include = FALSE, warning=FALSE, error=FALSE}
 dat <- read_csv("data_q1_ass1_s1_22.csv")
-
 ```
 
 #Question 1
@@ -98,14 +97,14 @@ tstat1 <- coef(summary(fit1))[2, "Estimate"] /
 # ~t(472)
 
 # critical value under the null
-tcrit1 <- qt(alpha_1/2, 472)
+tcrit1 <- qt(1 - alpha_1/2, 472)
 
 # decision
 abs(tstat1) > (tcrit1)
 #make something that says reject H0
 ```
 
-We conclude at the 0.05 level of significance that race has no effect on (the log of) an individual's annual salary in favour of the alternative hypothesis race has an effect.
+In conclusion, at 0.05 level of significance, we reject the null hypothesis that race has no effect on (the log of) an individual's annual salary in favour of the alternative hypothesis race that it has an effect.
 
 (iii)
 
@@ -214,7 +213,7 @@ fcrit2 <- qf(1 - alpha_2/2, DF2_num, DF2_denom)
 tstat2 > fcrit2
 ```
 
-We conclude at the 0.05 level of significance that an individual's number of years of education, their gender, the job category within the bank, their log of their starting annual salary, and if they belong to an ethnic minority or not are jointly insignificant in effecting (the log of an) individual's annual salary in favour of the alternative hypothesis that at least one of these variables are significant.
+In conclusion, at 0.05 level of significance, we reject the null hypothesis that an individual's number of years of education, their gender, the job category within the bank, their log of their starting annual salary, and if they belong to an ethnic minority are jointly insignificant in effecting (the log of an) individual's annual salary in favour of the alternative hypothesis that at least one of these variables are significant.
 
 (iv)
 
@@ -297,7 +296,7 @@ fcrit3 <- qf(1 - alpha_3/2, DF3_num, DF3_denom)
 tstat3 > fcrit3
 ```
 
-We conclude at the 0.05 level of significance that an individual in the bank's gender and whether or not the belong to ethnic minority has no effect on the (log of their) annual salary in favour of the alternative hypothesis that their gender and / or their race does effect the individual's (log of their) annual salary.
+In conclusion, at 0.05 level of significance, we reject the null hypothesis that an individual's gender and whether they belong to ethnic minority has no effect on the (log of their) annual salary in favour of the alternative hypothesis that their gender and / or their race does effect the individual's (log of their) annual salary.
 
 ## 1.d.
 
@@ -305,9 +304,7 @@ We conclude at the 0.05 level of significance that an individual in the bank's g
 
 Given that 
 $$
-\mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + 
-\beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race 
-+ \beta_{5} \ jobcat
+\mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat
 $$
 then our estimated conditional mean has form:
 $$
@@ -420,3 +417,130 @@ fcrit4 <- qf(1 - alpha_4/2, DF4_num, DF4_denom)
 # decision
 tstat4 > fcrit4
 ```
+In conclusion, at 0.05 level of significance, we reject the null hypothesis that the average of the `logsalary` for population A is the same population B in favour of the alternative hypothesis that they are not equal. In other words, there is a difference between an individual who is female, a manager, with 12 years of education, belongs to an ethnic minority, and has a starting salary and an individual who is male, a manager has 11 years of education, is not a member of a ethnic minority and also has a starting salary.
+
+## 1.g
+
+(i)
+By definition, the racial pay gap for males is:
+$\mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat]$
+Given $\mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat$, it follows that:
+
+$$
+\mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat]
+
+\\
+
+= \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{4} + \beta_{5} \ jobcat - 
+(\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{5} \ jobcat)
+
+\\
+
+= \beta_{4}
+$$
+So, the racial pay gap for males is $\beta_{4}$.
+
+(ii)
+By definition, the racial pay gap for females is:
+$\mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat]$
+Given $\mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat$, it follows that:
+
+$$
+\mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat]
+
+\\
+
+= \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{4} + \beta_{5} \ jobcat - 
+(\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{5} \ jobcat)
+
+\\
+
+= \beta_{4}
+$$
+So, the racial pay gap for females is also $\beta_{4}$.
+
+These results make sense, for another interpretation of $\beta_{4}$ is the partial effect of being in an ethnic minority on the log of an individual's starting salary against not being in an ethnic minority, that is, holding all else constant. Hence, whether or not we are looking at male or female racial pay gap is already accounted for in this model by $\beta_{4}$.
+
+## 1.h.
+
+(i)
+
+To allow in our model for the racial pay gap to vary by gender, we may introduce the interaction term $race \times gender$, allowing `race` to vary as a function of `gender`. Thus,
+
+$$
+\mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat + \beta_{6} \ race \times gender
+$$
+(ii)
+
+The racial pay grap for males, controlling for education, starting salary, and job cateogry is:
+$$
+\mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat]
+$$
+According to our new model, this is
+
+$$
+\mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat]
+
+\\
+
+= \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{4} + \beta_{5} \ jobcat + \beta_{6} 
+- (\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{5} \ jobcat)
+
+\\
+
+= \beta_{4} + \beta_{6}
+$$
+
+So, *this* racial pay gap for males is equal to $\beta_{4} + \beta_{6}$.
+
+(iii)
+
+The racial pay grap for females, controlling for education, starting salary, and job cateogry is:
+$$
+\mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat]
+$$
+According to our new model, this is
+
+$$
+\mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat]
+
+\\
+
+= \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{4} + \beta_{5} \ jobcat
+- (\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{5} \ jobcat)
+
+\\
+
+= \beta_{4}
+$$
+
+So, *this* racial pay gap for females is equal to $\beta_{4}$.
+
+(v)
+
+The null hypothesis is that, controlling for education, starting salary, and job category, the racial pay gap for males and females is the same. Hence, from part ii. and part iii. this statement is equivalent to the stating that $\beta_{4} + \beta{6} = \beta_{4}$ which in other words is to say that $\beta_{6} = 0$,
+
+```{r, warning = FALSE, error = FALSE}
+
+# level of significance
+alpha_5 <- 0.1
+
+# OLS regression
+fit5 <- lm(logsal ~ educ + logssal + gender + race + jobcat + race*gender, 
+           data = dat)
+
+# test statistic
+tstat5 <- coef(summary(fit5))[7, "Estimate"] / 
+  coef(summary(fit5))[7, "Std. Error"]
+# ~t(467)
+
+# critical value under the null
+tcrit5 <- qt(1 - alpha_5/2, 467)
+
+# decision
+abs(tstat5) > tcrit5
+```
+In conclusion, at 0.10 level of significance, we reject the null hypothes that, controlling for education, starting salary, and job category, the racial pay gap for males and females is the same in favour of the alternative hypothesis that they are not.
+
+
+
