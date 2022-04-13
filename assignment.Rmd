@@ -154,7 +154,7 @@ confint1 %>% kable()
 We are 95 per cent confident, on average, that the population value of the the log of an individual's annual salary in this bank for someone who does not belong to an ethnic minority is between 10.356 and 10.436. That is, the population value of an individual's annual salary in this bank is between $e^{10.356}$ and $e^{10.436}$, on average 95 per cent of the time.
 
 (ix) Since $\beta_{0} = 0$, in a hypothesis test of individual significance at  0.05, does not fall within the 95 per cent confidence interval ${10.356, 10.436}$ we conclude that $\hat{\beta_{0}}$ is statistically significant.
- 
+
 ### Part D
 
 #### (i)
@@ -408,3 +408,130 @@ fcrit4 <- qf(1 - alpha_4 / 2, DF4_num, DF4_denom)
 # decision
 tstat4 > fcrit4
 ```
+In conclusion, at 0.05 level of significance, we reject the null hypothesis that the average of the `logsalary` for population A is the same population B in favour of the alternative hypothesis that they are not equal. In other words, there is a difference between an individual who is female, a manager, with 12 years of education, belongs to an ethnic minority, and has a starting salary and an individual who is male, a manager has 11 years of education, is not a member of a ethnic minority and also has a starting salary.
+
+## 1.g
+
+(i)
+By definition, the racial pay gap for males is:
+$\mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat]$
+Given $\mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat$, it follows that:
+
+$$
+\mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat]
+
+\\
+
+= \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{4} + \beta_{5} \ jobcat - 
+(\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{5} \ jobcat)
+
+\\
+
+= \beta_{4}
+$$
+So, the racial pay gap for males is $\beta_{4}$.
+
+(ii)
+By definition, the racial pay gap for females is:
+$\mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat]$
+Given $\mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat$, it follows that:
+
+$$
+\mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat]
+
+\\
+
+= \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{4} + \beta_{5} \ jobcat - 
+(\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{5} \ jobcat)
+
+\\
+
+= \beta_{4}
+$$
+So, the racial pay gap for females is also $\beta_{4}$.
+
+These results make sense, for another interpretation of $\beta_{4}$ is the partial effect of being in an ethnic minority on the log of an individual's starting salary against not being in an ethnic minority, that is, holding all else constant. Hence, whether or not we are looking at male or female racial pay gap is already accounted for in this model by $\beta_{4}$.
+
+## 1.h.
+
+(i)
+
+To allow in our model for the racial pay gap to vary by gender, we may introduce the interaction term $race \times gender$, allowing `race` to vary as a function of `gender`. Thus,
+
+$$
+\mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat + \beta_{6} \ race \times gender
+$$
+(ii)
+
+The racial pay grap for males, controlling for education, starting salary, and job cateogry is:
+$$
+\mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat]
+$$
+According to our new model, this is
+
+$$
+\mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat]
+
+\\
+
+= \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{4} + \beta_{5} \ jobcat + \beta_{6} 
+- (\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{5} \ jobcat)
+
+\\
+
+= \beta_{4} + \beta_{6}
+$$
+
+So, *this* racial pay gap for males is equal to $\beta_{4} + \beta_{6}$.
+
+(iii)
+
+The racial pay grap for females, controlling for education, starting salary, and job cateogry is:
+$$
+\mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat]
+$$
+According to our new model, this is
+
+$$
+\mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat]
+
+\\
+
+= \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{4} + \beta_{5} \ jobcat
+- (\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{5} \ jobcat)
+
+\\
+
+= \beta_{4}
+$$
+
+So, *this* racial pay gap for females is equal to $\beta_{4}$.
+
+(v)
+
+The null hypothesis is that, controlling for education, starting salary, and job category, the racial pay gap for males and females is the same. Hence, from part ii. and part iii. this statement is equivalent to the stating that $\beta_{4} + \beta{6} = \beta_{4}$ which in other words is to say that $\beta_{6} = 0$,
+
+```{r, warning = FALSE, error = FALSE}
+
+# level of significance
+alpha_5 <- 0.1
+
+# OLS regression
+fit5 <- lm(logsal ~ educ + logssal + gender + race + jobcat + race*gender, 
+           data = dat)
+
+# test statistic
+tstat5 <- coef(summary(fit5))[7, "Estimate"] / 
+  coef(summary(fit5))[7, "Std. Error"]
+# ~t(467)
+
+# critical value under the null
+tcrit5 <- qt(1 - alpha_5/2, 467)
+
+# decision
+abs(tstat5) > tcrit5
+```
+In conclusion, at 0.10 level of significance, we reject the null hypothes that, controlling for education, starting salary, and job category, the racial pay gap for males and females is the same in favour of the alternative hypothesis that they are not.
+
+
+
