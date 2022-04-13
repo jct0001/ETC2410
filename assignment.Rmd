@@ -539,6 +539,3 @@ tcrit5 <- qt(1 - alpha_5/2, 467)
 abs(tstat5) > tcrit5
 ```
 In conclusion, at 0.10 level of significance, we reject the null hypothes that, controlling for education, starting salary, and job category, the racial pay gap for males and females is the same in favour of the alternative hypothesis that they are not.
-
-
-
