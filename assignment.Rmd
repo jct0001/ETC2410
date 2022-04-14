@@ -518,9 +518,9 @@ $$
 $$
 So, *this* racial pay gap for females is equal to $\beta_{4}$.
 
-(v)
+(iv)
 
-The null hypothesis is that, controlling for education, starting salary, and job category, the racial pay gap for males and females is the same. Hence, from part ii. and part iii. this statement is equivalent to the stating that $\beta_{4} + \beta{6} = \beta_{4}$ which in other words is to say that $\beta_{6} = 0$,
+The null hypothesis is that, controlling for education, starting salary, and job category, the racial pay gap for males and females is the same. Hence, from part ii. and part iii. this statement is equivalent to the stating that $\beta_{4} + \beta_{6} = \beta_{4}$ which in other words is to say that $\beta_{6} = 0$,
 
 ```{r, warning = FALSE, error = FALSE}
 
