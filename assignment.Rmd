@@ -392,6 +392,8 @@ $$
 \underset{(0.015)}{0.227} \ jobcat
 $$
 
+(vi)
+
 ```{r, warning = FALSE, error = FALSE}
 
 # level of significance
@@ -418,6 +420,8 @@ fcrit4 <- qf(1 - alpha_4/2, DF4_num, DF4_denom)
 # decision
 tstat4 > fcrit4
 ```
+(vii)
+
 In conclusion, at 0.05 level of significance, we reject the null hypothesis that the average of the `logsalary` for population A is the same population B in favour of the alternative hypothesis that they are not equal. In other words, there is a difference between an individual who is female, a manager, with 12 years of education, belongs to an ethnic minority, and has a starting salary and an individual who is male, a manager has 11 years of education, is not a member of a ethnic minority and also has a starting salary.
 
 ## 1.g
