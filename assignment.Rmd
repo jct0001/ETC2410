@@ -298,7 +298,7 @@ tstat3 > fcrit3
 
 In conclusion, at 0.05 level of significance, we reject the null hypothesis that an individual's gender and whether they belong to ethnic minority has no effect on the (log of their) annual salary in favour of the alternative hypothesis that their gender and / or their race does effect the individual's (log of their) annual salary.
 
-## 1.d.
+## 1.f.
 
 (i)
 
