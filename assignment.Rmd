@@ -6,7 +6,7 @@ output: pdf_document
 
 ```{r setup, ,echo = FALSE, include = FALSE, warning=FALSE,error=FALSE}
 
-knitr::opts_chunk$set(echo = TRUE, warning=FALSE,error=FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE, message = FALSE)
 ```
 
 
@@ -33,23 +33,23 @@ dat <- read_csv("data_q1_ass1_s1_22.csv")
 #### (i) Histogram of logsal
 
 ```{r, warning=FALSE, error=FALSE}
-dat %>% ggplot(aes(x = logsal)) + 
+dat %>% ggplot(aes(x = logsal)) +
   geom_histogram(aes(y = after_stat(density)),
-                 bins = 20) + 
-  geom_density() + 
+    bins = 20
+  ) +
+  geom_density() +
   labs(
     x = "logsal",
     y = "Density",
     title = "Histogram of logsal"
   )
-  
 ```
 
 #### (ii) analysis
 ```{r}
-logsal_stat <- dat$logsal %>% 
-  describe() %>% 
-  as.tibble() %>% 
+logsal_stat <- dat$logsal %>%
+  describe() %>%
+  as.tibble() %>%
   select(c(n, mean, median, min, max, sd, skew, kurtosis))
 
 kable(logsal_stat)
@@ -59,11 +59,13 @@ kable(logsal_stat)
 
 #### (i) scatterplot
 ```{r, warning = FALSE, error = FALSE}
-dat %>% ggplot(aes(x = race, y = logsal)) + 
+dat %>% ggplot(aes(x = race, y = logsal)) +
   geom_point() +
-  labs(x = "race",
-       y = "logsal",
-       title = "logsal v race")
+  labs(
+    x = "race",
+    y = "logsal",
+    title = "logsal v race"
+  )
 ```
 
 
@@ -92,16 +94,16 @@ fit1 %>% summary()
 alpha_1 <- 0.05
 
 # test statistic
-tstat1 <- coef(summary(fit1))[2, "Estimate"] / 
+tstat1 <- coef(summary(fit1))[2, "Estimate"] /
   coef(summary(fit1))[2, "Std. Error"]
 # ~t(472)
 
 # critical value under the null
-tcrit1 <- qt(1 - alpha_1/2, 472)
+tcrit1 <- qt(1 - alpha_1 / 2, 472)
 
 # decision
 abs(tstat1) > (tcrit1)
-#make something that says reject H0
+# make something that says reject H0
 ```
 
 In conclusion, at 0.05 level of significance, we reject the null hypothesis that race has no effect on (the log of) an individual's annual salary in favour of the alternative hypothesis race that it has an effect.
@@ -123,7 +125,7 @@ This model does not provide conclusive evidence of racial discrimination in sala
 SSR1 <- sum(resid(fit1)^2)
 SST1 <- sum((dat$logsal - mean(dat$logsal))^2)
 
-R2_1 <- 1 - (SSR1)/SST1
+R2_1 <- 1 - (SSR1) / SST1
 R2_1
 
 # summary(fit1)$r.squared
@@ -136,20 +138,22 @@ $\beta_{0}$ measures the conditional mean of the log of an individual's annual s
 #### (vii)
 
 ```{r, warning = FALSE, error = FALSE}
-LB1 <- coef(summary(fit1))[1, "Estimate"] - 
-  coef(summary(fit1))[1, "Std. Error"] * qt(1 - alpha_1/2, 472)
+LB1 <- coef(summary(fit1))[1, "Estimate"] -
+  coef(summary(fit1))[1, "Std. Error"] * qt(1 - alpha_1 / 2, 472)
 
-UP1 <- coef(summary(fit1))[1, "Estimate"] + 
-  coef(summary(fit1))[1, "Std. Error"] * qt(1 - alpha_1/2, 472)
+UP1 <- coef(summary(fit1))[1, "Estimate"] +
+  coef(summary(fit1))[1, "Std. Error"] * qt(1 - alpha_1 / 2, 472)
 
-confint1 <- cbind(LB1, UP1) %>% 
-  as.tibble() %>% 
-  rename("2.5 %" = LB1,
-         "97.5 %" = UP1)
+confint1 <- cbind(LB1, UP1) %>%
+  as.tibble() %>%
+  rename(
+    "2.5 %" = LB1,
+    "97.5 %" = UP1
+  )
 
 confint1 %>% kable()
 
-#confint(fit1, level = 0.95)
+# confint(fit1, level = 0.95)
 ```
 
 #### (viii)
@@ -175,7 +179,6 @@ $$
 # OLS regression
 fit2 <- lm(logsal ~ educ + logssal + gender + race + jobcat, data = dat)
 fit2 %>% summary()
-
 ```
 
 #### (ii)
@@ -200,15 +203,15 @@ SSR2.UR <- sum(resid(fit2.UR)^2)
 SSR2.R <- sum(resid(fit2.R)^2)
 
 # degrees of freedom
-DF2_num <- df.residual(fit2.R) - df.residual(fit2.UR) #no. of restrictions = 5
-DF2_denom <- df.residual(fit2.UR) #degrees of freedom of UR linear model = 468
+DF2_num <- df.residual(fit2.R) - df.residual(fit2.UR) # no. of restrictions = 5
+DF2_denom <- df.residual(fit2.UR) # degrees of freedom of UR linear model = 468
 
 # test statistic
 tstat2 <- ((SSR2.R - SSR2.UR) / DF2_num) / ((SSR2.UR) / DF2_denom)
 # ~ F(5, 468)
 
 # critical value
-fcrit2 <- qf(1 - alpha_2/2, DF2_num, DF2_denom)
+fcrit2 <- qf(1 - alpha_2 / 2, DF2_num, DF2_denom)
 
 # decision
 tstat2 > fcrit2
@@ -247,12 +250,17 @@ Moreover, given that the variance inflation factor (VIF) is not more than 10, wh
 ```{r, warning = FALSE, error = FALSE}
 
 cbind(
-  tibble("Model" = c("Old","New")), 
-         tibble("R-Squared" = 
-                  c(summary(fit1)$r.squared, summary(fit2)$r.squared))
+  tibble("Model" = c("Old", "New")),
+  tibble(
+    "R-Squared" =
+      c(summary(fit1)$r.squared, summary(fit2)$r.squared)
+  )
 ) %>% kable()
 
-vif(fit2) %>% as.tibble() %>% rename('VIF' = value) %>% kable()
+vif(fit2) %>%
+  as.tibble() %>%
+  rename("VIF" = value) %>%
+  kable()
 ```
 
 ### Part E
@@ -283,15 +291,15 @@ SSR3.UR <- sum(resid(fit3.UR)^2)
 SSR3.R <- sum(resid(fit3.R)^2)
 
 # degrees of freedom
-DF3_num <- df.residual(fit3.R) - df.residual(fit3.UR) #no. of restrictions = 2
-DF3_denom <- df.residual(fit3.UR) #degrees of freedom of UR linear model = 468
+DF3_num <- df.residual(fit3.R) - df.residual(fit3.UR) # no. of restrictions = 2
+DF3_denom <- df.residual(fit3.UR) # degrees of freedom of UR linear model = 468
 
 # test statistic
 tstat3 <- ((SSR3.R - SSR3.UR) / DF3_num) / ((SSR3.UR) / DF3_denom)
 # ~ F(2, 468)
 
 # critical value
-fcrit3 <- qf(1 - alpha_3/2, DF3_num, DF3_denom)
+fcrit3 <- qf(1 - alpha_3 / 2, DF3_num, DF3_denom)
 
 # decision
 tstat3 > fcrit3
@@ -375,7 +383,7 @@ This expression is our restricted model. We will use these two models for our F-
 #### (v)
 
 ```{r, warning = FALSE, error = FALSE}
-#fit4.UR <- lm(logsal ~ educ + logssal + gender + race + jobcat, data = dat)
+# fit4.UR <- lm(logsal ~ educ + logssal + gender + race + jobcat, data = dat)
 
 U <- dat$educ - dat$logssal
 V <- dat$race - dat$educ
@@ -408,15 +416,15 @@ SSR4.UR <- sum(resid(fit4.UR)^2)
 SSR4.R <- sum(resid(fit4.R)^2)
 
 # degrees of freedom
-DF4_num <- df.residual(fit4.R) - df.residual(fit4.UR) #no. of restrictions = 1 
-DF4_denom <- df.residual(fit4.UR) #degrees of freedom of UR linear model = 468
+DF4_num <- df.residual(fit4.R) - df.residual(fit4.UR) # no. of restrictions = 1
+DF4_denom <- df.residual(fit4.UR) # degrees of freedom of UR linear model = 468
 
 # test statistic
 tstat4 <- ((SSR4.R - SSR4.UR) / DF4_num) / ((SSR4.UR) / DF4_denom)
 # ~ F(1, 468)
 
 # critical value
-fcrit4 <- qf(1 - alpha_4/2, DF4_num, DF4_denom)
+fcrit4 <- qf(1 - alpha_4 / 2, DF4_num, DF4_denom)
 
 # decision
 tstat4 > fcrit4
@@ -530,16 +538,17 @@ The null hypothesis is that, controlling for education, starting salary, and job
 alpha_5 <- 0.1
 
 # OLS regression
-fit5 <- lm(logsal ~ educ + logssal + gender + race + jobcat + race*gender, 
-           data = dat)
+fit5 <- lm(logsal ~ educ + logssal + gender + race + jobcat + race * gender,
+  data = dat
+)
 
 # test statistic
-tstat5 <- coef(summary(fit5))[7, "Estimate"] / 
+tstat5 <- coef(summary(fit5))[7, "Estimate"] /
   coef(summary(fit5))[7, "Std. Error"]
 # ~t(467)
 
 # critical value under the null
-tcrit5 <- qt(1 - alpha_5/2, 467)
+tcrit5 <- qt(1 - alpha_5 / 2, 467)
 
 # decision
 abs(tstat5) > tcrit5
