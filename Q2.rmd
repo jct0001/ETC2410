@@ -1,0 +1,25 @@
+# Question 2
+### Part A
+$$\hat{u} = prediction\ error$$
+\begin{eqnarray}
+{\hat{u}}_i &=& y_i-{\hat{y}}_i \\
+&=& y_i-\left({\hat{\beta}}_o+{\hat{\beta}}_1x_i\right) \\
+&=& y_i-{\hat{\beta}}_o-{\hat{\beta}}_1x_i \\
+{\hat{\beta}}_0 &=& \bar{y}-{\hat{\beta}}_1\bar{x} \\
+\end{eqnarray}
+
+\begin{eqnarray}
+{\hat{u}}_i &=& y_i-\left(\bar{y}-{\hat{\beta}}_1\bar{x}\right)-{\hat{\beta}}_1x_i \\
+&=& \left(y_i-\bar{y}\right)-{\hat{\beta}}_1\left(u_i-\bar{x}\right) \\
+\end{eqnarray}
+
+\begin{eqnarray}
+\sum _{i=1}^n \hat{u}_i &=& \sum_{i=1}^{n}{[(y_i-\bar{y})-\hat{\beta}_1(u_i-\bar{x})]} \\
+&=& \sum_{i=1}^{n}{\left(y_i-\bar{y}\right)-\sum_{i=1}^{n}{{\hat{\beta}}_1\left(u_i-\bar{x}\right)}} \\
+&=& \sum_{i=1}^{n}{\left(y_i-\bar{y}\right)-{\hat{\beta}}_1\sum_{i=1}^{n}{\left(u_i-\bar{x}\right)}} \\
+&=& 0 \\
+\end{eqnarray}
+
+
+### Part B
+
