@@ -4,28 +4,25 @@ output: pdf_document
 
 # Question 2
 ### Part A
-$$\hat{u} = prediction\ error$$
-\begin{eqnarray}
-{\hat{u}}_i &=& y_i-{\hat{y}}_i \\
-&=& y_i-\left({\hat{\beta}}_o+{\hat{\beta}}_1x_i\right) \\
-&=& y_i-{\hat{\beta}}_o-{\hat{\beta}}_1x_i \\
-\end{eqnarray}
+\begin{align*}
+    \hat{u} \space &= prediction\ error \\
+    {\hat{u}}_i &= y_i-{\hat{y}}_i \\
+    &= y_i-\left({\hat{\beta}}_o+{\hat{\beta}}_1x_i\right) && \text {by definition } \hat y_i = \hat \beta_0 + \hat \beta_1 x_i\\
+    &= y_i-{\hat{\beta}}_o-{\hat{\beta}}_1x_i
+\end{align*}
 
-
-$${\hat{\beta}}_0 = \bar{y}-{\hat{\beta}}_1\bar{x}$$
-
-
-\begin{eqnarray}
-{\hat{u}}_i &=& y_i-\left(\bar{y}-{\hat{\beta}}_1\bar{x}\right)-{\hat{\beta}}_1x_i \\
-&=& \left(y_i-\bar{y}\right)-{\hat{\beta}}_1\left(x_i-\bar{x}\right) \\
-\end{eqnarray}
-
-\begin{eqnarray}
-\sum _{i=1}^n \hat{u}_i &=& \sum_{i=1}^{n}{[(y_i-\bar{y})-\hat{\beta}_1(x_i-\bar{x})]} \\
-&=& \sum_{i=1}^{n}{\left(y_i-\bar{y}\right)-\sum_{i=1}^{n}{{\hat{\beta}}_1\left(x_i-\bar{x}\right)}} \\
-&=& \sum_{i=1}^{n}{\left(y_i-\bar{y}\right)-{\hat{\beta}}_1\sum_{i=1}^{n}{\left(x_i-\bar{x}\right)}} \\
-&=& 0 \\
-\end{eqnarray}
+\begin{align*}
+    \sum _{i=1}^n \hat{u}_i &= \sum_{i=1}^{n}{y_i - (\hat \beta_0 + \hat \beta_1 x_i)} \\
+    &= \sum_{i=1}^{n}{y_i} - \sum_{i=1}^{n}{(\hat \beta_0 + \hat \beta_1 x_{i})} \\
+    &= \sum_{i=1}^{n}{y_i} - \sum_{i=1}^{n}{\hat \beta_0} - \sum_{i=1}^n{\hat \beta_1 x_{i}} \\
+    &= \sum_{i=1}^{n}{y_i} - \sum_{i=1}^n{\hat \beta_1 x_{i}} - n{\hat \beta_0} && \text {rearranging terms and summing $\hat \beta_0$} \\
+    &= \frac{n}{n} \sum_{i=1}^{n}{y_i} - \frac{n}{n} \sum_{i=1}^n{\hat \beta_1 x_{i}} - n{\hat \beta_0} && \text {times first and second sum by $\frac{n}{n}$} \\
+    &= n \bar y - n \hat \beta_i \bar{x} - n \hat \beta_0 \\
+    &= n \bar y - n \hat \beta_i \bar{x} - n (\bar y - \hat \beta_i \bar{x}) && \text {substituting (6)} \\
+    &= n \bar y - n \hat \beta_i \bar{x} - n \bar y + n\hat \beta_i \bar{x} \\
+    &= n \bar y - n \bar y - n \hat \beta_i \bar{x} + n\hat \beta_i \bar{x} \\
+    &= 0
+\end{align*}
 
 
 ### Part B
@@ -33,7 +30,7 @@ $${\hat{\beta}}_0 = \bar{y}-{\hat{\beta}}_1\bar{x}$$
 $$SSR\ \left(b_0,b_1\right)=\sum_{i=1}^{n}\left(y_i-b_0-b_1x_i\right)^2$$
 \begin{eqnarray}
 \left.\frac{\partial SSR\left(b_0,b_1\right)}{\partial b_0}\right|_{{\hat{\beta}}_0,{\hat{\beta}}_1} &=& -2\sum_{i=1}^{n}{\left(y_i-b_0-b_1x_i\right)=0} \\
-\left.\frac{\partial SSR\left(b_0,b_1\right)}{\partial b_i}\right|_{{\hat{\beta}}_0,{\hat{\beta}}_1} &=& -2\sum_{i=1}^{n}{x_i\left(y_i-b_0-b_1x_i\right)=0}\\
+\left.\frac{\partial SSR\left(b_0,b_1\right)}{\partial b_i}\right|_{{\hat{\beta}}_0,{\hat{\beta}}_1} &=& -2\sum_{i=1}^{n}{x_i\left(y_i-b_0-b_1x_i\right)=0}
 \end{eqnarray}
 
 where ${\hat{\beta}}_1=\frac{\sum_{i=1}^{n}\left(x_i-\bar{x}\right)\left(y_i-\bar{y}\right)}{\sum_{i=0}^{n}{(\left(x_i-\bar{x}\right)^2}}$ and 
@@ -41,11 +38,11 @@ ${\hat{\beta}}_0=\bar{y}-{\hat{\beta}}_1\bar{x}$ are the OLS estimators
 
 \begin{eqnarray}
 \bar{y} &=& \frac{1}{n}\sum_{i=1}^{n}y_i \\
-\bar{x} &=& \frac{1}{n}\sum_{i=1}^{n}x_i \\
+\bar{x} &=& \frac{1}{n}\sum_{i=1}^{n}x_i
 \end{eqnarray}
 
 ${\bar{\beta}}_0$ is the predicted value of $y_i$ when $x_i=0$
 
 $$\sum_{i=0}^{n}{{\hat{u}}_i=0}$$
 where $u_i=y_i-{\hat{y}}_i,\ i=1,\ 2,\ \ldots \ ,n$  
-$u_i=y_i-{\hat{\beta}}_0-{\hat{\beta}}_0,x_i,\ i=1,\ 2,\ \ldots \ ,n$
+$u_i=y_i-{\hat{\beta}}_0-{\hat{\beta}}_0,x_i,\ i=1,\ 2,\ \ldots \ ,n$ -->
