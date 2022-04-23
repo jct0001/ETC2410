@@ -17,13 +17,13 @@ $${\hat{\beta}}_0 = \bar{y}-{\hat{\beta}}_1\bar{x}$$
 
 \begin{eqnarray}
 {\hat{u}}_i &=& y_i-\left(\bar{y}-{\hat{\beta}}_1\bar{x}\right)-{\hat{\beta}}_1x_i \\
-&=& \left(y_i-\bar{y}\right)-{\hat{\beta}}_1\left(u_i-\bar{x}\right) \\
+&=& \left(y_i-\bar{y}\right)-{\hat{\beta}}_1\left(x_i-\bar{x}\right) \\
 \end{eqnarray}
 
 \begin{eqnarray}
-\sum _{i=1}^n \hat{u}_i &=& \sum_{i=1}^{n}{[(y_i-\bar{y})-\hat{\beta}_1(u_i-\bar{x})]} \\
-&=& \sum_{i=1}^{n}{\left(y_i-\bar{y}\right)-\sum_{i=1}^{n}{{\hat{\beta}}_1\left(u_i-\bar{x}\right)}} \\
-&=& \sum_{i=1}^{n}{\left(y_i-\bar{y}\right)-{\hat{\beta}}_1\sum_{i=1}^{n}{\left(u_i-\bar{x}\right)}} \\
+\sum _{i=1}^n \hat{u}_i &=& \sum_{i=1}^{n}{[(y_i-\bar{y})-\hat{\beta}_1(x_i-\bar{x})]} \\
+&=& \sum_{i=1}^{n}{\left(y_i-\bar{y}\right)-\sum_{i=1}^{n}{{\hat{\beta}}_1\left(x_i-\bar{x}\right)}} \\
+&=& \sum_{i=1}^{n}{\left(y_i-\bar{y}\right)-{\hat{\beta}}_1\sum_{i=1}^{n}{\left(x_i-\bar{x}\right)}} \\
 &=& 0 \\
 \end{eqnarray}
 
@@ -32,8 +32,8 @@ $${\hat{\beta}}_0 = \bar{y}-{\hat{\beta}}_1\bar{x}$$
 
 $$SSR\ \left(b_0,b_1\right)=\sum_{i=1}^{n}\left(y_i-b_0-b_1x_i\right)^2$$
 \begin{eqnarray}
-\left.\frac{\partial SSR\left(b_0,b_1\right)}{\partial\left(b_0\right)}\right|_{{\hat{\beta}}_0,{\hat{\beta}}_1} &=& -2\sum_{i=1}^{n}{\left(y_i-b_0-b_1x_i\right)=0} \\
-\left.\frac{\partial SSR\left(b_0,b_1\right)}{\partial\left(b_i\right)}\right|_{{\hat{\beta}}_0,{\hat{\beta}}_1} &=& -2\sum_{i=1}^{n}{x_i\left(y_i-b_0-b_1x_i\right)=0}\\
+\left.\frac{\partial SSR\left(b_0,b_1\right)}{\partial b_0}\right|_{{\hat{\beta}}_0,{\hat{\beta}}_1} &=& -2\sum_{i=1}^{n}{\left(y_i-b_0-b_1x_i\right)=0} \\
+\left.\frac{\partial SSR\left(b_0,b_1\right)}{\partial b_i}\right|_{{\hat{\beta}}_0,{\hat{\beta}}_1} &=& -2\sum_{i=1}^{n}{x_i\left(y_i-b_0-b_1x_i\right)=0}\\
 \end{eqnarray}
 
 where ${\hat{\beta}}_1=\frac{\sum_{i=1}^{n}\left(x_i-\bar{x}\right)\left(y_i-\bar{y}\right)}{\sum_{i=0}^{n}{(\left(x_i-\bar{x}\right)^2}}$ and 
