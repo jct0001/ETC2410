@@ -31,17 +31,17 @@ output: pdf_document
 
 \begin{align*}
     SSR\ \left(b_0,b_1\right) &=\sum_{i=1}^{n}\left(y_i-b_0-b_1x_i\right)^2 \\
-    \left.\frac{\partial SSR\left(b_0,b_1\right)}{\partial b_0}\right|_{{\hat{\beta}}_0,{\hat{\beta}}_1} &= -2\sum_{i=1}^{n}{\left(y_i-\beta_0-\beta_1x_i\right)=0} \\
-    \left.\frac{\partial SSR\left(b_0,b_1\right)}{\partial b_i}\right|_{{\hat{\beta}}_0,{\hat{\beta}}_1} &= -2\sum_{i=1}^{n}{x_i\left(y_i-b_0-b_1x_i\right)=0} && \text {(1)} \\
+    \left.\frac{\partial SSR\left(b_0,b_1\right)}{\partial b_0}\right|_{{\hat{\beta}}_0,{\hat{\beta}}_1} &= -2\sum_{i=1}^{n}{\left(y_i- \hat \beta_0-\hat \beta_1x_i\right)=0} \\
+    \left.\frac{\partial SSR\left(b_0,b_1\right)}{\partial b_i}\right|_{{\hat{\beta}}_0,{\hat{\beta}}_1} &= -2\sum_{i=1}^{n}{x_i\left(y_i-\hat \beta_0-\hat \beta_1x_i\right)=0} && \text {Call this (1)} \\
     \\
     {\hat{u}}_i &= y_i-{\hat{y}}_i,\ i = 1, 2, ... n && \text {from Assignment eq(7)}\\
     &= y_i-\left({\hat{\beta}}_o+{\hat{\beta}}_1x_i\right) && \text {by definition } \hat y_i = \hat \beta_0 + \hat \beta_1 x_i\\
-    &= y_i-{\hat{\beta}}_o-{\hat{\beta}}_1x_i && \text {(2)}\\
+    &= y_i-{\hat{\beta}}_o-{\hat{\beta}}_1x_i && \text {Call this (2)}\\
 \end{align*}
 
 \begin{align*}
     -2\sum_{i=1}^{n}x_i (\hat u_i) &= 0 && \text {substituting (2) into (1)} \\
-    \sum_{i=1}^{n}x_i \hat u_i &= 0 && \text {(3)}
+    \sum_{i=1}^{n}x_i \hat u_i &= 0 && \text {Call this (3)}
 \end{align*}
 
 Now if 
@@ -51,7 +51,7 @@ $\boldsymbol{x} = \underset{(n \times 1)}{
     \vdots \\
     x_{n}
 \end{pmatrix}}$ and 
-$\boldsymbol{\hat u} =\underset{(u \times 1)}{ 
+$\boldsymbol{\hat u} =\underset{(n \times 1)}{ 
 \begin{pmatrix}
     \hat u_{1} \\
     \vdots \\
@@ -60,7 +60,7 @@ $\boldsymbol{\hat u} =\underset{(u \times 1)}{
 the dot product is 
 
 \begin{align*}
-    {\boldsymbol{x' \hat u}} &= \begin{pmatrix} \hat x_{1} && ... && \hat x_{n} \end{pmatrix}
+    {\boldsymbol{x' \hat u}} &= \begin{pmatrix} x_{1} && ... && x_{n} \end{pmatrix}
     \begin{pmatrix} \hat u_{1} \\ \vdots \\ \hat u_{n} \end{pmatrix} \\
     &= x_1 \hat u_1 +\ ...\ + x_n \hat u_n && \text {just the linear combinations of column vector ${\boldsymbol u}$}\\
     & && \text {where the scalars are the components of ${\boldsymbol{x}}$} \\
