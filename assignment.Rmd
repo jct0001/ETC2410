@@ -58,7 +58,7 @@ kable(logsal_stat)
 ##1.b.
 
 (i) scatterplot
-```{r, warning = FALSE, error = FALSE}
+```{r, warning = FALSE, error = FALSE, echo = FALSE}
 dat %>% ggplot(aes(x = race, y = logsal)) + 
   geom_point() +
   labs(x = "race",
@@ -66,7 +66,9 @@ dat %>% ggplot(aes(x = race, y = logsal)) +
        title = "logsal v race")
 ```
 
+As the mean is greater than the median, the distribution is positively skewed indicating that there are high valued outliers (those earning high annual wages). Since the skewness is 0.99, we can say that this distribution is moderately skewed.
 
+On average, an individual in this bank will have a log of annual salary of 10.36 or, in other words, an annual salary of $e^{10.36} = 31571.18$. The maximum annual salary, empirically, is $e^{11.81} = 134591.6$ and the lowest salary in the bank is $e^{9.66} = 15677.78$ That is a difference of $118913.8
 
 ##1.c.
 
