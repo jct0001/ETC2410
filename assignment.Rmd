@@ -340,8 +340,7 @@ Given the null hypothesis that the average `logsal` of population A is equal to 
 
 $\mathbb{E}[logsal \mid educ = 12, gender = 0, race = 1, jobcat = 3, logssal] - \mathbb{E}[logsal \mid educ = 11, gender = 1, race = 0, jobcat = 3, logssal] = 0$
 
-which is just:
-$ (\beta_{0} + 12\beta_{1} + \beta_{4} + 3\beta_{5}) + \beta_{2} \ logssal - (\beta_{0} + 11\beta_{1} + \beta_{3} + 3\beta_{5}) - \beta_{2} \ logssal = \beta_{1} + \beta_{4} - \beta_{3} = 0$
+$(\beta_{0} + 12\beta_{1} + \beta_{4} + 3\beta_{5}) + \beta_{2} \ logssal - (\beta_{0} + 11\beta_{1} + \beta_{3} + 3\beta_{5}) - \beta_{2} \ logssal = \beta_{1} + \beta_{4} - \beta_{3} = 0$
 
 So the restriction that follows from the null hypothesis is that $\beta_{1} + \beta_{4} = \beta_{3}$. The negation of this statement is that $\beta_{1} + \beta_{4} \neq \beta_{3}$ which is the alternative hypothesis, where the average `logsal` of population A is not equal to that of population B.
 
