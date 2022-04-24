@@ -323,12 +323,14 @@ $$
 $$
 
 For population A, i.e. for the population of female managers with 12 years of education who belong to a racial minority and received a given starting salary, the average `logsal` is:
+
 $$
+\begin{aligned}
 \mathbb{E}[logsal \mid educ = 12, gender = 0, race = 1, jobcat = 3, logssal] = 
-\beta_{0} + \beta_{1}12 + \beta_{2} \ logssal + \beta_{4} 
-+ \beta_{5}3 
-\\
+\beta_{0} + \beta_{1}12 + \beta_{2} \ logssal + \beta_{4} + \beta_{5}3 
+\\ 
 = (\beta_{0} + 12\beta_{1} + \beta_{4} + 3\beta_{5}) + \beta_{2} \ logssal
+\end{aligned}
 $$
 
 #### Section ii
@@ -336,11 +338,12 @@ $$
 Likewise, for population B, i.e. for the population of male managers with 11 years of education who are not members of a ethnic minority and receives the same starting salary as the individuals in population A, the average `logsal` is:
 
 $$
+\begin{aligned}
 \mathbb{E}[logsal \mid educ = 11, gender = 1, race = 0, jobcat = 3, logssal] = 
-\beta_{0} + \beta_{1}11 + \beta_{2} \ logssal + \beta_{3} 
-+ \beta_{5}3 
-\\
+\beta_{0} + \beta_{1}11 + \beta_{2} \ logssal + \beta_{3} + \beta_{5}3 
+\\ 
 = (\beta_{0} + 11\beta_{1} + \beta_{3} + 3\beta_{5}) + \beta_{2} \ logssal
+\end{aligned}
 $$
 
 #### Section iii
@@ -349,8 +352,7 @@ Given the null hypothesis that the average `logsal` of population A is equal to 
 
 $\mathbb{E}[logsal \mid educ = 12, gender = 0, race = 1, jobcat = 3, logssal] - \mathbb{E}[logsal \mid educ = 11, gender = 1, race = 0, jobcat = 3, logssal] = 0$
 
-which is just:
-$ (\beta_{0} + 12\beta_{1} + \beta_{4} + 3\beta_{5}) + \beta_{2} \ logssal - (\beta_{0} + 11\beta_{1} + \beta_{3} + 3\beta_{5}) - \beta_{2} \ logssal = \beta_{1} + \beta_{4} - \beta_{3} = 0$
+$(\beta_{0} + 12\beta_{1} + \beta_{4} + 3\beta_{5}) + \beta_{2} \ logssal - (\beta_{0} + 11\beta_{1} + \beta_{3} + 3\beta_{5}) - \beta_{2} \ logssal = \beta_{1} + \beta_{4} - \beta_{3} = 0$
 
 So the restriction that follows from the null hypothesis is that $\beta_{1} + \beta_{4} = \beta_{3}$. The negation of this statement is that $\beta_{1} + \beta_{4} \neq \beta_{3}$ which is the alternative hypothesis, where the average `logsal` of population A is not equal to that of population B.
 
@@ -367,15 +369,13 @@ $$
 to get:
 
 $$
-\beta_{0} + (\beta_{3} - \beta_{4}) \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat
-
+\begin{aligned}
+\beta_{0} + (\beta_{3} - \beta_{4}) \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat 
 \\ 
-
 = \beta_{0} + \beta_{3} \ educ - \beta_{4} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat
-
-\\
-
-= \beta_{0} + \beta_{2}(educ \ + \ logssal) + \beta_{3} \ gender + \beta_{4}(race \ - \ educ) + \beta_{5} \ jobcat
+\\ 
+= \beta_{0} + \beta_{2}(educ \ + \ logssal) + \beta_{3} \ gender + \beta_{4}(race \ - \ educ) + \beta_{5} \ jobcat 
+\end{aligned}
 $$
 let $U = educ + logssal$  and $V = race - educ$, so
 
@@ -450,16 +450,14 @@ $$
 it follows that:
 
 $$
-\mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat]
-
-\\
-
+\begin{aligned} 
+\mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat] 
+\\ 
 = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{4} + \beta_{5} \ jobcat - 
-(\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{5} \ jobcat)
-
-\\
-
+(\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{5} \ jobcat) 
+\\ 
 = \beta_{4}
+\end{aligned}
 $$
 So the racial pay gap for males is $\beta_{4}$.
 
@@ -475,16 +473,14 @@ $$
 it follows that:
 
 $$
-\mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat]
-
-\\
-
+\begin{aligned}
+\mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat] 
+\\ 
 = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{4} + \beta_{5} \ jobcat - 
-(\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{5} \ jobcat)
-
-\\
-
+(\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{5} \ jobcat) 
+\\ 
 = \beta_{4}
+\end{aligned}
 $$
 So the racial pay gap for females is also $\beta_{4}$.
 
@@ -508,16 +504,15 @@ $$
 According to our new model, this is
 
 $$
-\mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat]
-
-\\
-
+\begin{aligned}
+\mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - 
+\mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat] 
+\\ 
 = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{4} + \beta_{5} \ jobcat + \beta_{6} 
-- (\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{5} \ jobcat)
-
-\\
-
+- (\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{5} \ jobcat) 
+\\ 
 = \beta_{4} + \beta_{6}
+\end{aligned}
 $$
 
 So *this* racial pay gap for males is equal to $\beta_{4} + \beta_{6}$.
@@ -531,16 +526,14 @@ $$
 According to our new model, this is
 
 $$
-\mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat]
-
-\\
-
+\begin{aligned}
+\mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat] 
+\\ 
 = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{4} + \beta_{5} \ jobcat
-- (\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{5} \ jobcat)
-
-\\
-
+- (\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{5} \ jobcat) 
+\\ 
 = \beta_{4}
+\end{aligned}
 $$
 
 So *this* racial pay gap for females is equal to $\beta_{4}$.
