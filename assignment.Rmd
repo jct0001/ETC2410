@@ -18,11 +18,12 @@ library(car)
 dat <- read_csv("data_q1_ass1_s1_22.csv")
 ```
 
-#Question 1
+# Question 1
 
-## 1(a)
+### Part A
 
-(i) Histogram of `logsal`
+#### Section i 
+Histogram of `logsal`
 
 ```{r, warning = FALSE, error = FALSE, echo = FALSE}
 dat %>% ggplot(aes(x = logsal)) + 
@@ -37,7 +38,7 @@ dat %>% ggplot(aes(x = logsal)) +
   
 ```
 
-(ii)
+#### Section ii
 ```{r, warning = FALSE, error = FALSE, echo = FALSE}
 logsal_stat <- dat$logsal %>% 
   describe() %>% 
@@ -50,9 +51,9 @@ As the mean is greater than the median, the distribution is positively skewed in
 
 On average, an individual in this bank will have a log of annual salary of around 10.36 or, in other words, an annual salary of around $e^{10.36} = 31,470.09$. The maximum annual salary, empirically, is around $e^{11.81} = 135,000.00$ and the lowest salary in the bank is around $e^{9.66} = 15,750.00$ That is a difference of around $119,250.00$.
 
-## 1(b)
+### Part B
 
-i) 
+#### Section i
 
 Scatterplot of `logsal` and `race`
 ```{r, warning = FALSE, error = FALSE, echo = FALSE}
@@ -63,13 +64,13 @@ dat %>% ggplot(aes(x = race, y = logsal)) +
        title = "logsal v race")
 ```
 
-ii)
+#### Section ii
 
 Recall from part (a)ii) that the mean of `logsal` was around 10.36. From the scatterplot it is evident that in this bank, an individual who does not belong to an ethnic minority earns in a wide range of salaries from slightly below to 10.0 to slightly above 11.0 (as per where all the data points are clustered). In contrast, for an individual who does belong to an ethnic minority this is range is far smaller, somewhere slightly below 10.0 to around 10.5. Hence, the gap from the mean wage of 10.36 is larger for non-minorities which may suggest larger mobility for this category of employees which would be indicative of racial discrimination.
 
-## 1(c)
+### Part C
 
-i)
+#### Section i
 
 $$
 \hat{logsal} = \underset{(0.020)}{10.396} - \underset{(0.043)}{0.180} \ race
@@ -82,7 +83,7 @@ fit1 <- lm(logsal ~ race, data = dat)
 fit1 %>% summary()
 ```
 
-ii)
+#### Section ii
 
 ```{r, warning = FALSE, error = FALSE}
 
@@ -104,17 +105,17 @@ abs(tstat1) > (tcrit1)
 
 In conclusion, at 0.05 level of significance, we reject the null hypothesis that race has no effect on (the log of) an individual's annual salary in favour of the alternative hypothesis race has an effect.
 
-iii)
+#### Section iii
 
 $\hat{\beta_{1}}$ measures the average difference in the log of an individual's annual salary in the bank (thus proportionate difference) between someone who belongs to an ethnic minority and someone who does not.
 
 Hence, the average difference, according to our model, in an individual's annual wage between someone who belongs to an ethnic minority is $e^{-0.180}$ times the annual salary of someone who does not belong to an ethnic minority.
 
-iv)
+#### Section iv
 
 This model does not provide conclusive evidence of racial discrimination in salaries paid by the bank. This is because it does not account for (condition on) confounding variables - variables that causally effect an individual's annual salary and whether they belong to an ethnic minority. For example, an individual's level of education may be a variable of interest; the individual may be an immigrant to which US' immigration policy and its skill stream for accepting immigrants (based on education) may decide whether or not someone (in America) belongs to an ethnic minority. And, for an individual's annual salary, may be effected by if the company values (and thus willing to pay wages that are higher) for someone based on the education that they have. 
 
-v)
+#### Section v
 
 As the coefficient of determination is around $R = 0.035$, this means that around 3.5 per cent of the sample variation in the log of an individual's annual salary is explained by race in this bank. Hence, this model is a very low fit for describing what variables effect an individual's annual salary, where the remaining 96.5 per cent may be caused be unaccounted for variables like education (as aforementioned) or inherent variability. 
 
@@ -127,12 +128,12 @@ R2_1 <- 1 - (SSR1)/SST1
 R2_1
 ```
 
-vi)
+#### Section vi
 
 $\beta_{0}$ measures the conditional mean of the log of an individual's annual salary in this bank who does not belong to an ethnic minority. This value is 10.396.
 In other words, the conditional mean of an individual's annual salary who is not part of of ethnic minority is $e^{10.396}$.
 
-vii)
+#### Section vii
 
 ```{r, warning = FALSE, error = FALSE}
 LB1 <- coef(summary(fit1))[1, "Estimate"] - 
@@ -151,17 +152,17 @@ confint1 %>% kable()
 #confint(fit1, level = 0.95)
 ```
 
-viii)
+#### Section viii
 
 We are 95 per cent confident, on average, that the population value of the the log of an individual's annual salary in this bank for someone who does not belong to an ethnic minority is between 10.356 and 10.436. That is, the population value of an individual's annual salary in this bank is between $e^{10.356}$ and $e^{10.436}$, on average 95 per cent of the time.
 
-ix)
+#### Section ix
 
 Since $\beta_{0} = 0$, in a hypothesis test of individual significance at  0.05, does not fall within the 95 per cent confidence interval ${10.356, 10.436}$ we conclude that $\hat{\beta_{0}}$ is statistically significant.
  
-## 1(d)
+### Part D
 
-i)
+#### Section i
 
 $$
 \hat{logsal} = \underset{(0.390)}{4.026} - \underset{(0.004)}{0.024} \ educ \ 
@@ -176,12 +177,12 @@ fit2 <- lm(logsal ~ educ + logssal + gender + race + jobcat, data = dat)
 fit2 %>% summary()
 ```
 
-ii)
+#### Section ii
 
 A regressor is individually insignificant at 0.001 level of significance if its p-value is larger than 0.001, $\textrm{p-value} > 0.001$.
 So, according to our model only gender and race are individually insignificant at this level as $\textrm{p-value}_{gender} = 0.0013 > 0.001$ and $\textrm{p-value}_{race} = 0.027 > 0.001$, respectively.
 
-iii)
+#### Section iii
 
 ```{r, warning = FALSE, error = FALSE}
 
@@ -215,13 +216,13 @@ tstat2 > fcrit2
 
 In conclusion, at 0.05 level of significance, we reject the null hypothesis that an individual's number of years of education, their gender, the job category within the bank, their log of their starting annual salary, and if they belong to an ethnic minority are jointly insignificant in effecting (the log of an) individual's annual salary in favour of the alternative hypothesis that at least one of these variables are significant.
 
-iv)
+#### Section iv
 
 $\hat{\beta_{4}}$ measures the average difference in the log of an individual's annual salary in the bank (thus proportionate difference) between someone who belongs to an ethnic minority and someone who does not, controlling for the the number of years of education, the gender, the job category within the bank, and the log of an individual's starting salary.
 
 Hence, *this* average difference, according to our model, for an individual who belongs to an ethnic minority is $e^{-0.043}$ times the annual salary of someone who does not belong an ethnic minority.
 
-(v)
+#### Section v
 
 ```{r, warning = FALSE, error = FALSE}
 coef(summary(fit2))[4, "Estimate"] - coef(summary(fit2))[5, "Estimate"]
@@ -231,11 +232,11 @@ coef(summary(fit2))[4, "Estimate"] - coef(summary(fit2))[5, "Estimate"]
 
 $\hat{\beta_{3}} - \hat{\beta_{4}} = 0.103$ does not have a meaningful interpretation. This is because $\hat{\beta_{3}}$ is the conditional mean of the log of an individual's annual salary given that they are male and ceteris paribus minus the conditional mean of the log of an individual's annual salary given that they are female and ceteris paribus. $\hat{\beta_{4}}$ is the conditional mean of  the log an individual's annual salary given that they belong to an ethnic minority and ceteris paribus minus the conditional mean of the log of an individual's annual salary given that the do not belong to an ethnic minority and ceteris paribus. Hence, the difference between $\hat{\beta_{3}}$ and $\hat{\beta_{4}}$ is the sum of the conditional mean of an individual's annual salary given that they are male, ceteris paribus (including one's racial status), plus the salary given that they are not part of the ethnic minority, ceteris paribus  (including one's gender), minus the salary given that they are female, ceteris paribus (including one's racial status), minus the salary given that they are part of an ethnic minority, ceteris paribus (including one's gender). The fact that this sum of different means is conditional on different set of variables makes any descriptive application inapplicable to the bank.
 
-(vi)
+#### Section vi
 
 It is likely that this model does provide conclusive evidence of racial discrimination in salaries paid by the bank, as per the individual significance of the regression coefficient for `race` and the joint significance of all regressors. This is because the model takes into account possible confounding variables to `race` and `logsal` — years of education, one's gender, the job category, and the (log of) starting salary — which would allow us to make causal statements about an individual's racial status on the (log of their) annual salary. In other words, we are unlikely to have committed **omitted variable bias** in this model by our specification of variables.
 
-(vii)
+#### Section vii
 
 The new model has $R^{2} = 0.826$, meaning around 82.6 per cent of the sample variation in the log of an individual's annual salary is explained by the independent variables. This is a much better comparison to the old model where only 3.5 per cent was explained by the independent variables, leaving much variation unexplained (about a $(0.826 - 0.035) \times 100\% = 79.1 \%$  difference). 
 
@@ -251,7 +252,7 @@ cbind(
 vif(fit2) %>% as.tibble() %>% rename('VIF' = value) %>% kable()
 ```
 
-## 1(e)
+### Part E
 
 We are working with the same model prior:
 
@@ -295,9 +296,9 @@ tstat3 > fcrit3
 
 In conclusion, at 0.05 level of significance, we reject the null hypothesis that an individual's gender and whether they belong to ethnic minority has no effect on the (log of their) annual salary in favour of the alternative hypothesis that their gender and/or their race does effect the individual's (log of their) annual salary.
 
-## 1(f)
+### Part F
 
-i)
+#### Section i
 
 Given that 
 $$
@@ -318,7 +319,7 @@ $$
 = (\beta_{0} + 12\beta_{1} + \beta_{4} + 3\beta_{5}) + \beta_{2} \ logssal
 $$
 
-ii)
+#### Section ii
 
 Likewise, for population B, i.e. for the population of male managers with 11 years of education who are not members of a ethnic minority and receives the same starting salary as the individuals in population A, the average `logsal` is:
 
@@ -330,7 +331,7 @@ $$
 = (\beta_{0} + 11\beta_{1} + \beta_{3} + 3\beta_{5}) + \beta_{2} \ logssal
 $$
 
-iii)
+#### Section iii
 
 Given the null hypothesis that the average `logsal` of population A is equal to that of population B $\mathbb{E}[logsal \mid educ = 12, gender = 0, race = 1, jobcat = 3, logssal] = \mathbb{E}[logsal \mid educ = 11, gender = 1, race = 0, jobcat = 3, logssal]$, it follows that:
 
@@ -341,7 +342,7 @@ $ (\beta_{0} + 12\beta_{1} + \beta_{4} + 3\beta_{5}) + \beta_{2} \ logssal - (\b
 
 So the restriction that follows from the null hypothesis is that $\beta_{1} + \beta_{4} = \beta_{3}$. The negation of this statement is that $\beta_{1} + \beta_{4} \neq \beta_{3}$ which is the alternative hypothesis, where the average `logsal` of population A is not equal to that of population B.
 
-iv)
+#### Section iv
 
 Under the null hypothesis, $\beta_{1} + \beta_{4} = \beta_{3}$. So, rearranging to get $\beta_{1} = \beta_{3} - \beta_{4}$ we can substitute this into our unrestricted model (the population model):
 
@@ -371,7 +372,7 @@ $$
 $$
 This expression is our restricted model. We will use these two models for our F-test when we come to test the null hypothesis that $\beta_{1} + \beta_{4} = \beta_{3}$ (tantamount to holding that the two populations A and B have the same `logsal`) against the alternative hypothesis that $\beta_{1} + \beta_{4} \neq \beta_{3}$ (that the two populations A and B do not have the same average `logsal`).
 
-v)
+#### Section v
 
 ```{r, warning = FALSE, error = FALSE}
 #fit4.UR <- lm(logsal ~ educ + logssal + gender + race + jobcat, data = dat)
@@ -391,7 +392,7 @@ $$
 \underset{(0.015)}{0.227} \ jobcat
 $$
 
-vi)
+#### Section vi
 
 ```{r, warning = FALSE, error = FALSE}
 
@@ -421,9 +422,9 @@ tstat4 > fcrit4
 ```
 In conclusion, at 0.05 level of significance, we reject the null hypothesis that the average of the `logsalary` for population A is the same population B in favour of the alternative hypothesis that they are not equal. In other words, there is a difference between an individual who is female, a manager, with 12 years of education, belongs to an ethnic minority, and has a starting salary *and* an individual who is male, a manager, has 11 years of education, is not an member of a ethnic minority, and also has a starting salary.
 
-## 1(g)
+### Part G
 
-i)
+#### Section i
 
 By definition, the racial pay gap for males is:
 $$
@@ -450,7 +451,7 @@ $$
 $$
 So the racial pay gap for males is $\beta_{4}$.
 
-(ii)
+#### Section ii
 By definition, the racial pay gap for females is:
 $$
 \mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat
@@ -477,16 +478,16 @@ So the racial pay gap for females is also $\beta_{4}$.
 
 These results make sense, for another interpretation of $\beta_{4}$ is the partial effect of being in an ethnic minority on the log of an individual's starting salary against not being in an ethnic minority, that is, holding all else constant. Hence, whether or not we are looking at male or female racial pay gap is already accounted for in this model by $\beta_{4}$.
 
-## 1(h)
+### Part H
 
-i)
+#### Section i
 
 To allow in our model for the racial pay gap to vary by gender, we may introduce the interaction term $race \times gender$, allowing `race` to vary as a function of `gender`. Thus,
 
 $$
 \mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat + \beta_{6} \ race \times gender
 $$
-ii)
+#### Section ii
 
 The racial pay gap for males, controlling for education, starting salary, and job category is:
 $$
@@ -509,7 +510,7 @@ $$
 
 So *this* racial pay gap for males is equal to $\beta_{4} + \beta_{6}$.
 
-iii)
+#### Section iii
 
 The racial pay grap for females, controlling for education, starting salary, and job category is:
 $$
@@ -532,7 +533,7 @@ $$
 
 So *this* racial pay gap for females is equal to $\beta_{4}$.
 
-iv)
+#### Section iv
 
 The null hypothesis is that, controlling for education, starting salary, and job category, the racial pay gap for males and females is the same. Hence, from part (h)ii) and part (h)iii) this statement is equivalent to the stating that $\beta_{4} + \beta{6} = \beta_{4}$ which in other words is to say that $\beta_{6} = 0$.
 
