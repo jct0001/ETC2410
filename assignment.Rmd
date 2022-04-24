@@ -86,7 +86,7 @@ $$
 
 # OLS regression
 fit1 <- lm(logsal ~ race, data = dat)
-fit1 %>% summary()
+# fit1 %>% summary()
 ```
 
 #### Section ii
@@ -108,7 +108,7 @@ tcrit1 <- qt(1 - alpha_1 / 2, 472)
 # abs(tstat1) > (tcrit1)
 # make something that says reject H0
 ```
-<!-- $$`r glue::glue("Hi, {alpha_1}")`$$ -->
+
 
 \begin{align*}
     H_0 &: \beta_1 = 0 \\
@@ -135,7 +135,7 @@ This model does not provide conclusive evidence of racial discrimination in sala
 
 #### Section v
 
-As the coefficient of determination is around $R = 0.035$, this means that around 3.5 per cent of the sample variation in the log of an individual's annual salary is explained by race in this bank. Hence, this model is a very low fit for describing what variables effect an individual's annual salary, where the remaining 96.5 per cent may be caused be unaccounted for variables like education (as aforementioned) or inherent variability. 
+As the coefficient of determination is around $R^2 = 0.035$, this means that around 3.5 per cent of the sample variation in the log of an individual's annual salary is explained by race in this bank. Hence, this model is a very low fit for describing what variables effect an individual's annual salary, where the remaining 96.5 per cent may be caused be unaccounted for variables like education (as aforementioned) or inherent variability. 
 
 ```{r, warning = FALSE, error = FALSE}
 
@@ -172,6 +172,8 @@ confint1 %>% kable()
 # confint(fit1, level = 0.95)
 ```
 
+$$\text {Confidence interval}: (`r coef(summary(fit1))[1, "Estimate"]` - `r coef(summary(fit1))[1, "Std. Error"]` * `r qt(1 - alpha_1 / 2, 472)`, `r coef(summary(fit1))[1, "Estimate"]` + `r coef(summary(fit1))[1, "Std. Error"]` * `r qt(1 - alpha_1 / 2, 472)`)$$
+
 #### Section viii
 
 We are 95 per cent confident, on average, that the population value of the the log of an individual's annual salary in this bank for someone who does not belong to an ethnic minority is between 10.356 and 10.436. That is, the population value of an individual's annual salary in this bank is between $e^{10.356}$ and $e^{10.436}$, on average 95 per cent of the time.
@@ -194,7 +196,7 @@ $$
 ```{r, warning = FALSE, error = FALSE}
 # OLS regression
 fit2 <- lm(logsal ~ educ + logssal + gender + race + jobcat, data = dat)
-fit2 %>% summary()
+# fit2 %>% summary()
 ```
 
 #### Section ii
@@ -427,7 +429,7 @@ V <- dat$race - dat$educ
 
 fit4.R <- lm(logsal ~ U + gender + V + jobcat, data = dat)
 
-fit4.R %>% summary()
+# fit4.R %>% summary()
 ```
 
 So our restricted model is:
