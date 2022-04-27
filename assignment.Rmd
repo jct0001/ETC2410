@@ -421,14 +421,15 @@ $$
 \\ 
 = \beta_{0} + \beta_{3} \ educ - \beta_{4} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat
 \\ 
-= \beta_{0} + \beta_{2}(educ \ + \ logssal) + \beta_{3} \ gender + \beta_{4}(race \ - \ educ) + \beta_{5} \ jobcat 
+= \beta_{0} + \beta_{2}\ logssal + \beta_{3} (educ + \ gender) +  \beta_{4}(race \ - \ educ) + \beta_{5} \ jobcat 
 \end{aligned}
 $$
-let $U = educ + logssal$  and $V = race - educ$, so
+let $U = educ + gender$  and $V = race - educ$, so
 
 $$
-\beta_{0} + \beta_{2}U + \beta_{3} \ gender + \beta_{4}V + \beta_{5} \ jobcat
+\beta_{0} + \beta_{2} \ logssal + \beta_{3}U + \beta_{4}V + \beta_{5} \ jobcat
 $$
+
 This expression is our restricted model. We will use these two models for our F-test when we come to test the null hypothesis that $\beta_{1} + \beta_{4} = \beta_{3}$ (tantamount to holding that the two populations A and B have the same `logsal`) against the alternative hypothesis that $\beta_{1} + \beta_{4} \neq \beta_{3}$ (that the two populations A and B do not have the same average `logsal`).
 
 #### Section v
@@ -436,17 +437,17 @@ This expression is our restricted model. We will use these two models for our F-
 ```{r, warning = FALSE, error = FALSE}
 # fit4.UR <- lm(logsal ~ educ + logssal + gender + race + jobcat, data = dat)
 
-U <- dat$educ - dat$logssal
+U <- dat$educ + dat$gender
 V <- dat$race - dat$educ
 
-fit4.R <- lm(logsal ~ U + gender + V + jobcat, data = dat)
+fit4.R <- lm(logsal ~ logssal + U + V + jobcat, data = dat)
 
 # fit4.R %>% summary()
 ```
 
 So our restricted model is:
 $$
-\widehat{logsal} = \underset{(0.164)}{8.282} - \underset{(0.020)}{0.120}U + \underset{(0.019)}{0.160} gender  - \underset{(0.019)}{0.160}V + \underset{(0.015)}{0.227} jobcat
+\widehat{logsal} = \underset{(0.371)}{3.685} + \underset{(0.043)}{0.636} \ logssal + \underset{(0.012)}{0.023}U  - \underset{(0.012)}{0.003}V + \underset{(0.016)}{0.119} jobcat
 $$
 
 #### Section vi
@@ -477,6 +478,8 @@ fcrit4 <- qf(1 - alpha_4 / 2, DF4_num, DF4_denom)
 # decision
 # tstat4 > fcrit4
 ```
+
+NOTE TO CHANGE THIS LATEX AS THIS ERRONEOUS FROM PREVIOUS MISTAKE!
 \begin{align*}
     H_0 &: \beta_3 = \beta_4 = 0 \\
     H_1 &: \underset{i \in \{3, 4\}}{\exists} {\beta_i} \neq 0 \\
