@@ -40,6 +40,7 @@ dat %>% ggplot(aes(x = logsal)) +
     )
 ```
 
+
 #### Section ii
 ```{r, warning = FALSE, error = FALSE, echo = FALSE}
 logsal_stat <- dat$logsal %>%
@@ -64,11 +65,13 @@ dat %>% ggplot(aes(y = race, x = logsal)) +
     # scale_y_continuous(breaks = c(0, 1), minor_breaks = NULL) +
     ylim(-1, 2) +
     labs(
-        y = "race",
-        x = "logsal",
         title = "logsal v race"
     )
 ```
+
+\begin{align*}
+    \text {RACE} &: \text {1 if individual i belongs to an ethnic minority, 0 otherwise}\\
+\end{align*}
 
 #### Section ii  
 
@@ -292,8 +295,8 @@ cbind(
 ) %>% kable()
 
 vif(fit2) %>%
-    as_tibble() %>%
-    rename("VIF" = value) %>%
+    # as_tibble() %>%
+    # rename("VIF" = value) %>%
     kable()
 ```
 
