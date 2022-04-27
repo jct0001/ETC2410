@@ -168,7 +168,7 @@ confint1 <- cbind(LB1, UP1) %>%
     )
 ```
 \begin{align*}
-    \text {Confidence interval} &: (\hat \beta_0 - c_{0.025} se(\hat \beta_0), \hat \beta_0 + c_{0.025} se(\hat \beta_0))\\
+    \text {Confidence interval} &: (\hat \beta_0 - t_{472@0.025} se(\hat \beta_0), \hat \beta_0 + t_{472@0.025} se(\hat \beta_0))\\
     &: (`r coef(summary(fit1))[1, "Estimate"]` - `r qt(1 - alpha_1 / 2, 472)` \times `r coef(summary(fit1))[1, "Std. Error"]`, `r coef(summary(fit1))[1, "Estimate"]` + `r qt(1 - alpha_1 / 2, 472)` \times `r coef(summary(fit1))[1, "Std. Error"]`) \\
     &: (`r LB1`, `r UP1`)
 \end{align*}
