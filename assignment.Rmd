@@ -492,7 +492,7 @@ NOTE TO CHANGE THIS LATEX AS THIS ERRONEOUS FROM PREVIOUS MISTAKE!
     U &: educ + gender\\
     V &: race - educ\\
     \text {Unresticted Model} &: \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} educ + \underset{(0.045)}{0.601} logssal + \underset{(0.019)}{0.061} gender - \underset{(0.019)}{0.043} race + \underset{(0.016)}{0.121} jobcat\\
-    \text {Resticted Model} &: \widehat{logsal} = \underset{(0.164)}{8.282} - \underset{(0.020)}{0.120}U + \underset{(0.019)}{0.160} gender - \underset{(0.019)}{0.160}V + \underset{(0.015)}{0.227} jobcat\\
+    \text {Resticted Model} &: \widehat{logsal} = \underset{(0.370848)}{3.684869} + \underset{(0.042768)}{0.635941}logssal + \underset{(0.012260)}{0.022563}U - \underset{(0.012137)}{0.002899}V + \underset{(0.015798)}{0.118732} jobcat\\
     \text {Test stat and null dist} &: \frac{(SSR_R - SSR_{UR})}{SSR_{UR}} \frac{(n-k-1)}{q} \sim F(q, n-k-1) = F(2, 468) \\
     F_{calc} &= `r tstat4` \\
     F_{crit} &= `r fcrit4` \\
