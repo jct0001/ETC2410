@@ -118,7 +118,7 @@ tcrit1 <- qt(1 - alpha_1 / 2, 472)
 \begin{align*}
     H_0 &: \beta_1 = 0 \\
     H_1 &: \beta_1 \neq 0 \\
-    \text {Significant Level} &: \alpha = 0.05 \\
+    \text {Significance Level} &: \alpha = 0.05 \\
     \text {Test stat and null dist} &: \frac{\hat \beta_1}{se(\hat \beta_1)} \sim t_{n-k-1} = t_{472} \\
     t_{calc} &= `r abs(tstat1)` \\
     t_{crit} &= `r tcrit1` \\
@@ -251,7 +251,7 @@ fcrit2 <- qf(1 - alpha_2 / 2, DF2_num, DF2_denom)
 \begin{align*}
     H_0 &: \beta_1 = \beta_2 = \beta_3 = \beta_4 = \beta_5 = 0 \\
     H_1 &: \underset{i \in \{1, 2, 3, 4, 5\}}{\exists} {\beta_i} \neq 0 \text {at least one regressor coef is zero}\\
-    \text {Significant Level} &: \alpha = 0.05 \\
+    \text {Significance Level} &: \alpha = 0.05 \\
     \text {Unresticted Model} &: \widehat{logsal} = \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} educ + \underset{(0.045)}{0.601} logssal + \underset{(0.019)}{0.061} gender - \underset{(0.019)}{0.043} race + \underset{(0.016)}{0.121} jobcat\\
     \text {Resticted Model} &: \widehat{logsal} = \underset{(0.018)}{10.357}\\
     \text {Test stat and null dist} &: \frac{(SSR_R - SSR_{UR})}{SSR_{UR}} \frac{(n-k-1)}{q} \sim F_{(q, n-k-1)} = F_{5, 468} \\
@@ -355,7 +355,7 @@ fcrit3 <- qf(1 - alpha_3 / 2, DF3_num, DF3_denom)
 \begin{align*}
     H_0 &: \beta_3 = \beta_4 = 0 \\
     H_1 &: \underset{i \in \{3, 4\}}{\exists} {\beta_i} \neq 0 (\beta_3 \text {and/or} \beta_4 is non zero)\\
-    \text {Significant Level} &: \alpha = 0.1 \\
+    \text {Significance Level} &: \alpha = 0.1 \\
     \text {Unresticted Model} &: \widehat{logsal} = \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} educ +\underset{(0.045)}{0.601} logssal + \underset{(0.019)}{0.061} gender - \underset{(0.019)}{0.043} race + \underset{(0.016)}{0.121} jobcat\\
     \text {Resticted Model} &: \widehat{logsal} = \underset{(0.356)}{3.439} + \underset{(0.004)}{0.0241} educ + \underset{(0.041)}{0.665} logssal + \underset{(0.016)}{0.117} jobcat\\
     \text {Test stat and null dist} &: \frac{(SSR_R - SSR_{UR})}{SSR_{UR}} \frac{(n-k-1)}{q} \sim F(q, n-k-1) = F(2, 468) \\
@@ -492,11 +492,11 @@ fcrit4 <- qf(1 - alpha_4 / 2, DF4_num, DF4_denom)
 
 NOTE TO CHANGE THIS LATEX AS THIS ERRONEOUS FROM PREVIOUS MISTAKE!
 \begin{align*}
+    H_0 &: \beta_1 + \beta_4 = \beta_3\\
+    H_1 &: \beta_1 + \beta_4 \neq \beta_3\\
+    \text {Significance Level} &: \alpha = 0.1 \\
     U &: educ + gender\\
-    V &: \\
-    H_0 &: \\
-    H_1 &: \\
-    \text {Significant Level} &: \alpha = 0.1 \\
+    V &: race - educ\\
     \text {Unresticted Model} &: \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} educ + \underset{(0.045)}{0.601} logssal + \underset{(0.019)}{0.061} gender - \underset{(0.019)}{0.043} race + \underset{(0.016)}{0.121} jobcat\\
     \text {Resticted Model} &: \widehat{logsal} = \underset{(0.164)}{8.282} - \underset{(0.020)}{0.120}U + \underset{(0.019)}{0.160} gender - \underset{(0.019)}{0.160}V + \underset{(0.015)}{0.227} jobcat\\
     \text {Test stat and null dist} &: \frac{(SSR_R - SSR_{UR})}{SSR_{UR}} \frac{(n-k-1)}{q} \sim F(q, n-k-1) = F(2, 468) \\
@@ -634,7 +634,7 @@ tcrit5 <- qt(1 - alpha_5 / 2, 467)
 \begin{align*}
     H_0 &: \beta_6 = 0 \\
     H_1 &: \beta_6 \neq 0 \\
-    \text {Significant Level} &: \alpha = 0.1 \\
+    \text {Significance Level} &: \alpha = 0.1 \\
     \text {Est Reg} &: \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} educ + \underset{(0.045)}{0.601} logssal + \underset{(0.019)}{0.061} gender - \underset{(0.019)}{0.043} race + \underset{(0.016)}{0.121} jobcat \\
     \text {Test stat and null dist} &: \frac{\hat \beta_1}{se(\hat \beta_1)} \sim t_{n-k-1} = t_{467} \\
     t_{calc} &= `r abs(tstat5)` \\
