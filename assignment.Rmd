@@ -94,6 +94,7 @@ fit1 <- lm(logsal ~ race, data = dat)
 
 #### Section ii
 
+Our null hypothesis is that race has no effect on an individual's annual (log of their) salary in this bank ($\beta_{1} = 0$). The alternative hypothesis is that race has an effect ($\beta_{1} \neq 0$). 
 ```{r, warning = FALSE, error = FALSE}
 
 # level of significance
@@ -115,7 +116,7 @@ tcrit1 <- qt(1 - alpha_1 / 2, 472)
 
 \begin{align*}
     H_0 &: \beta_1 = 0 \\
-    H_1 &: \beta_1 > 0 \\
+    H_1 &: \beta_1 \neq 0 \\
     \text {Significant Level} &: \alpha = 0.05 \\
     \text {Test stat and null dist} &: \frac{\hat \beta_1}{se(\hat \beta_1)} \sim t_{n-k-1} = t_{472} \\
     t_{calc} &= `r abs(tstat1)` \\
@@ -130,7 +131,7 @@ In conclusion, at 0.05 level of significance, we reject the null hypothesis that
 
 $\hat{\beta_{1}}$ measures the average difference in the log of an individual's annual salary in the bank (thus proportionate difference) between someone who belongs to an ethnic minority and someone who does not.
 
-Hence, the average difference, according to our model, in an individual's annual wage between someone who belongs to an ethnic minority is $e^{-0.180}$ times the annual salary of someone who does not belong to an ethnic minority.
+Hence, the average difference, according to our model, in an individual's annual salary between someone who belongs to an ethnic minority is $e^{-0.180}$ times the annual salary of someone who does not belong to an ethnic minority. Or, in other words, the average difference of the log annual salary is that someone who does not belong to an ethnic minority earns $-0.180$ more than someone who is part of ethnic minority.
 
 #### Section iv  
 
@@ -184,11 +185,11 @@ confint1 <- cbind(LB1, UP1) %>%
 
 #### Section viii  
 
-We are 95 per cent confident, on average, that the population value of the the log of an individual's annual salary in this bank for someone who does not belong to an ethnic minority is between 10.356 and 10.436. That is, the population value of an individual's annual salary in this bank is between $e^{10.356}$ and $e^{10.436}$, on average 95 per cent of the time.
+We are 95 per cent confident, on average, that the population mean of the the log of an individual's annual salary in this bank for someone who does not belong to an ethnic minority is between 10.356 and 10.436. That is, 95 per cent of the time, the interval between $e^{10.356}$ and $e^{10.436}$ will contain the population mean of an individual's annual salary in this bank for someone who does not belong to a ethnic minority. 
 
 #### Section ix  
 
-Since $\beta_{0} = 0$, in a hypothesis test of individual significance at  0.05, does not fall within the 95 per cent confidence interval ${10.356, 10.436}$ we conclude that $\hat{\beta_{0}}$ is statistically significant.
+Since $\beta_{0} = 0$, in a hypothesis test of individual significance at  0.05, does not fall within the 95 per cent confidence interval ${10.356, 10.436}$ we conclude that $\hat{\beta_{0}}$ is statistically significant. That is, we reject the null hypothesis that $\beta_{0} = 0$ for the alternative hypothesis that $\beta_{0} \neq 0$.
 
 ### Part D
 
@@ -207,8 +208,8 @@ fit2 <- lm(logsal ~ educ + logssal + gender + race + jobcat, data = dat)
 
 #### Section ii  
 
-A regressor is individually insignificant at 0.001 level of significance if its p-value is larger than 0.001, $\textrm{p-value} > 0.001$.
-So, according to our model only gender and race are individually insignificant at this level as $\textrm{p-value}_{gender} = 0.0013 > 0.001$ and $\textrm{p-value}_{race} = 0.027 > 0.001$, respectively.
+A regressor is individually insignificant at 0.01 level of significance if its p-value is larger than 0.01, $\textrm{p-value} > 0.01$.
+So according to our model only race is individually insignificant at this level as $\textrm{p-value}_{race} = 0.027 > 0.01$.
 
 #### Section iii
 
@@ -263,7 +264,7 @@ In conclusion, at 0.05 level of significance, we reject the null hypothesis that
 
 $\hat{\beta_{4}}$ measures the average difference in the log of an individual's annual salary in the bank (thus proportionate difference) between someone who belongs to an ethnic minority and someone who does not, controlling for the the number of years of education, the gender, the job category within the bank, and the log of an individual's starting salary.
 
-Hence, *this* average difference, according to our model, for an individual who belongs to an ethnic minority is $e^{-0.043}$ times the annual salary of someone who does not belong an ethnic minority.
+Hence *this* average difference is $-0.043$; someone who does not belong to an ethnic minority, ceteris paribus, earns $0.043$ more in annual log salary than someone does. In other words, for an individual who belongs to an ethnic minority, he/she earns $e^{-0.043}$ times the annual salary of someone who does not belong an ethnic minority, on average, ceteris paribus.
 
 #### Section v
 
@@ -283,7 +284,7 @@ It is likely that this model does provide conclusive evidence of racial discrimi
 
 The new model has $R^{2} = 0.826$, meaning around 82.6 per cent of the sample variation in the log of an individual's annual salary is explained by the independent variables. This is a much better comparison to the old model where only 3.5 per cent was explained by the independent variables, leaving much variation unexplained (about a $(0.826 - 0.035) \times 100\% = 79.1 \%$  difference). 
 
-Moreover, given that the variance inflation factor (VIF) is not more than 10, which would be indicative of high correlation between regressors, but rather very small at below 2 for each, this suggests that our new model has not overspecified and that this $R^{2}$ is not high largely because of adding more variables.
+Moreover, given that the variance inflation factor (VIF) is not more than 10, which would be indicative of high correlation between regressors, but rather very small at below 2 for each save `logssal` (at around 4.21), this suggests that our new model has not overspecified and that this $R^{2}$ is not high largely because of adding more variables.
 
 ```{r, warning = FALSE, error = FALSE, echo = FALSE}
 cbind(
@@ -307,7 +308,7 @@ We are working with the same model prior:
 $$
 \widehat{logsal} = \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} \ educ \ + \ \underset{(0.045)}{0.601} \ logssal \ + \ \underset{(0.019)}{0.061} \  gender \ - \ \underset{(0.019)}{0.043} \ race \ + \underset{(0.016)}{0.121}  \ jobcat
 $$
-
+Our null hypothesis is that an individual's gender and race (whether they belong to an ethnic minority) has no effect on the annual (log of their) salary in this bank ($\beta_3 = \beta_4 = 0$). The alternative hypothesis is that it does have an effect (\beta_3 and/or \beta_4 is non-zero).
 
 ```{r, warning = FALSE, error = FALSE}
 
@@ -341,6 +342,8 @@ fcrit3 <- qf(1 - alpha_3 / 2, DF3_num, DF3_denom)
 # decision
 # tstat3 > fcrit3
 ```
+
+
 \begin{align*}
     H_0 &: \beta_3 = \beta_4 = 0 \\
     H_1 &: \underset{i \in \{3, 4\}}{\exists} {\beta_i} \neq 0 \\
@@ -348,9 +351,9 @@ fcrit3 <- qf(1 - alpha_3 / 2, DF3_num, DF3_denom)
     \text {Unresticted Model} &: \widehat{logsal} = \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} educ +\underset{(0.045)}{0.601} logssal + \underset{(0.019)}{0.061} gender - \underset{(0.019)}{0.043} race + \underset{(0.016)}{0.121} jobcat\\
     \text {Resticted Model} &: \widehat{logsal} = \underset{(0.356)}{3.439} + \underset{(0.004)}{0.0241} educ + \underset{(0.041)}{0.665} logssal + \underset{(0.016)}{0.117} jobcat\\
     \text {Test stat and null dist} &: \frac{(SSR_R - SSR_{UR})}{SSR_{UR}} \frac{(n-k-1)}{q} \sim F(q, n-k-1) = F(2, 468) \\
-    t_{calc} &= `r tstat3` \\
+    F_{calc} &= `r tstat3` \\
     F_{crit} &= `r fcrit3` \\
-    \text {Decision rule} &: \text {reject $H_0$ if $t_{calc} > F_{crit}$} \\
+    \text {Decision rule} &: \text {reject $H_0$ if $F_{calc} > F_{crit}$} \\
     \text {Decision} &: \text {Since `r tstat3` > `r fcrit3`, reject $H_0$} \\
 \end{align*}
 In conclusion, at 0.05 level of significance, we reject the null hypothesis that an individual's gender and whether they belong to ethnic minority has no effect on the (log of their) annual salary in favour of the alternative hypothesis that their gender and/or their race does effect the individual's (log of their) annual salary.
@@ -487,9 +490,9 @@ NOTE TO CHANGE THIS LATEX AS THIS ERRONEOUS FROM PREVIOUS MISTAKE!
     \text {Unresticted Model} &: \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} educ + \underset{(0.045)}{0.601} logssal + \underset{(0.019)}{0.061} gender - \underset{(0.019)}{0.043} race + \underset{(0.016)}{0.121} jobcat\\
     \text {Resticted Model} &: \widehat{logsal} = \underset{(0.164)}{8.282} - \underset{(0.020)}{0.120}U + \underset{(0.019)}{0.160} gender - \underset{(0.019)}{0.160}V + \underset{(0.015)}{0.227} jobcat\\
     \text {Test stat and null dist} &: \frac{(SSR_R - SSR_{UR})}{SSR_{UR}} \frac{(n-k-1)}{q} \sim F(q, n-k-1) = F(2, 468) \\
-    t_{calc} &= `r tstat4` \\
+    F_{calc} &= `r tstat4` \\
     F_{crit} &= `r fcrit4` \\
-    \text {Decision rule} &: \text {reject $H_0$ if $t_{calc} > F_{crit}$} \\
+    \text {Decision rule} &: \text {reject $H_0$ if $F_{calc} > F_{crit}$} \\
     \text {Decision} &: \text {Since `r tstat4` > `r fcrit4`, reject $H_0$} \\
 \end{align*}
 In conclusion, at 0.05 level of significance, we reject the null hypothesis that the average of the `logsalary` for population A is the same population B in favour of the alternative hypothesis that they are not equal. In other words, there is a difference between an individual who is female, a manager, with 12 years of education, belongs to an ethnic minority, and has a starting salary *and* an individual who is male, a manager, has 11 years of education, is not an member of a ethnic minority, and also has a starting salary.
@@ -619,8 +622,8 @@ tcrit5 <- qt(1 - alpha_5 / 2, 467)
 # abs(tstat5) > tcrit5
 ```
 \begin{align*}
-    H_0 &: \beta_1 = 0 \\
-    H_1 &: \beta_1 \neq 0 \\
+    H_0 &: \beta_6 = 0 \\
+    H_1 &: \beta_6 \neq 0 \\
     \text {Significant Level} &: \alpha = 0.1 \\
     \text {Est Reg} &: \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} educ + \underset{(0.045)}{0.601} logssal + \underset{(0.019)}{0.061} gender - \underset{(0.019)}{0.043} race + \underset{(0.016)}{0.121} jobcat \\
     \text {Test stat and null dist} &: \frac{\hat \beta_1}{se(\hat \beta_1)} \sim t_{n-k-1} = t_{467} \\
