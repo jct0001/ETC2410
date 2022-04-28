@@ -1,0 +1,17 @@
+TBD:
+- refer to commented pdf for edits. Some comments will require Jonas to fix it himself or interpret what he means
+- change question format to reflect criteria
+- label all final equations with a number to reflect criteria
+- q1f part iv i need you to change to reflect the updated equation (previous equation was wrong as harry pointed out)
+- pls update the eviews for q1f to reflect the new equation
+- q2 change the use of the word "equation" to "property"
+- Jonas needs to do q3 (c)
+- Jonas needs to fix that one question in (q1) that has MATHSPEAK on it 
+
+After TBD is completed, the final review is as follows:
+- check each qu so that equations naturally follow
+- code is done correctly and Eviews returns correct output
+- check that the structure of the doc aligns with assignment criteria
+- ensure all members have submitted (as this is a requirement)
+- everyone do feedback
+- check names and student id is on the doc
