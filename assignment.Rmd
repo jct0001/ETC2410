@@ -276,7 +276,7 @@ coef(summary(fit2))[4, "Estimate"] - coef(summary(fit2))[5, "Estimate"]
 
 ***MATHSPEAK LATER***
 
-$\hat{\beta_{3}} - \hat{\beta_{4}} = 0.103$ does not have a meaningful interpretation. This is because $\hat{\beta_{3}}$ is the conditional mean of the log of an individual's annual salary given that they are male and ceteris paribus minus the conditional mean of the log of an individual's annual salary given that they are female and ceteris paribus. $\hat{\beta_{4}}$ is the conditional mean of  the log an individual's annual salary given that they belong to an ethnic minority and ceteris paribus minus the conditional mean of the log of an individual's annual salary given that the do not belong to an ethnic minority and ceteris paribus. Hence, the difference between $\hat{\beta_{3}}$ and $\hat{\beta_{4}}$ is the sum of the conditional mean of an individual's annual salary given that they are male, ceteris paribus (including one's racial status), plus the salary given that they are not part of the ethnic minority, ceteris paribus  (including one's gender), minus the salary given that they are female, ceteris paribus (including one's racial status), minus the salary given that they are part of an ethnic minority, ceteris paribus (including one's gender). The fact that this sum of different means is conditional on different set of variables makes any descriptive application inapplicable to the bank.
+$\hat{\beta_{3}} - \hat{\beta_{4}} = 0.103$. This means that an individual in the bank who is male and does not belong to an ethnic minority, on average controlling for education, their starting salary, and job category, earns 0.103 more than a female and does belong to an ethnic minority in (the log of) their annual salary. In other words, a male who does not belong to an ethnic minority earns $e^{0.103}$ times their counterpart (female and belongs to an ethnic minority) annually in salaries, on average, controlling for education, their starting salary, and job category.
 
 #### (vi)  
 
@@ -356,7 +356,7 @@ fcrit3 <- qf(1 - alpha_3 / 2, DF3_num, DF3_denom)
 
 \begin{align*}
     H_0 &: \beta_3 = \beta_4 = 0 \\
-    H_1 &: \underset{i \in \{3, 4\}}{\exists} {\beta_i} \neq 0 (\beta_3 \text {and/or} \beta_4 is non zero)\\
+    H_1 &: \underset{i \in \{3, 4\}}{\exists} {\beta_i} \neq 0 (\beta_3 \ \text {and/or} \beta_4 \textrm {is non zero})\\
     \text {Significance Level} &: \alpha = 0.1 \\
     \text {Unresticted Model} &: \widehat{logsal} = \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} educ +\underset{(0.045)}{0.601} logssal + \underset{(0.019)}{0.061} gender - \underset{(0.019)}{0.043} race + \underset{(0.016)}{0.121} jobcat\\
     \text {Resticted Model} &: \widehat{logsal} = \underset{(0.356)}{3.439} + \underset{(0.004)}{0.0241} educ + \underset{(0.041)}{0.665} logssal + \underset{(0.016)}{0.117} jobcat\\
