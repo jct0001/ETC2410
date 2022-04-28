@@ -79,8 +79,11 @@ Recall from part (a)ii) that the mean of `logsal` was around 10.36. From the sca
 
 #### (i)
 
+\begin {equation}
+    \widehat{logsal} = \underset{(0.020)}{10.396} - \underset{(0.043)}{0.180} \ race
+\end {equation}
+
 \begin{align*}
-    \widehat{logsal} &= \underset{(0.020)}{10.396} - \underset{(0.043)}{0.180} \ race \\
     R^2 &: 0.035414 \\
     n &: 474 \\
 \end{align*}
@@ -189,9 +192,11 @@ Since $\beta_{0} = 0$, in a hypothesis test of individual significance at  0.05,
 ### (d)
 
 #### (i)
+\begin {equation}
+    \widehat{logsal} = \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} \ educ \ + \ \underset{(0.045)}{0.601} \ logssal \ + \ \underset{(0.019)}{0.061} \  gender \ - \ \underset{(0.019)}{0.043} \ race \ + \underset{(0.016)}{0.121}  \ jobcat
+\end {equation}
 
 \begin{align*}
-    \widehat{logsal} &= \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} \ educ \ + \ \underset{(0.045)}{0.601} \ logssal \ + \ \underset{(0.019)}{0.061} \  gender \ - \ \underset{(0.019)}{0.043} \ race \ + \underset{(0.016)}{0.121}  \ jobcat \\
     R^2 &: 0.826101 \\
     n &: 474 \\
 \end{align*}
@@ -304,8 +309,11 @@ tibble("Regressor" = c("educ", "logssal", "gender", "race", "jobcat")) %>%
 
 We are working with the same model prior:
 
+\begin {equation}
+    \widehat{logsal} = \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} \ educ \ + \ \underset{(0.045)}{0.601} \ logssal \ + \ \underset{(0.019)}{0.061} \  gender \ - \ \underset{(0.019)}{0.043} \ race \ + \underset{(0.016)}{0.121}  \ jobcat 
+\end {equation}
+
 \begin{align*}
-    \widehat{logsal} &= \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} \ educ \ + \ \underset{(0.045)}{0.601} \ logssal \ + \ \underset{(0.019)}{0.061} \  gender \ - \ \underset{(0.019)}{0.043} \ race \ + \underset{(0.016)}{0.121}  \ jobcat \\
     R^2 &: 0.826101 \\
     n &: 474 \\
 \end{align*}
@@ -385,6 +393,10 @@ $$
 \end{aligned}
 $$
 
+\begin {equation}
+\mathbb{E}[logsal \mid educ = 12, gender = 0, race = 1, jobcat = 3, logssal] = (\beta_{0} + 12\beta_{1} + \beta_{4} + 3\beta_{5}) + \beta_{2} \ logssal
+\end {equation}
+
 #### (ii)  
 
 Likewise, for population B, i.e. for the population of male managers with 11 years of education who are not members of a ethnic minority and receives the same starting salary as the individuals in population A, the average `logsal` is:
@@ -397,6 +409,10 @@ $$
 = (\beta_{0} + 11\beta_{1} + \beta_{3} + 3\beta_{5}) + \beta_{2} \ logssal
 \end{aligned}
 $$
+
+\begin {equation}
+\mathbb{E}[logsal \mid educ = 11, gender = 1, race = 0, jobcat = 3, logssal] = (\beta_{0} + 11\beta_{1} + \beta_{3} + 3\beta_{5}) + \beta_{2} \ logssal
+\end {equation}
 
 #### (iii)  
 
@@ -422,18 +438,18 @@ to get:
 
 $$
 \begin{aligned}
-\beta_{0} + (\beta_{3} - \beta_{4}) \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat 
-\\ 
-= \beta_{0} + \beta_{3} \ educ - \beta_{4} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat
-\\ 
-= \beta_{0} + \beta_{2}\ logssal + \beta_{3} (educ + \ gender) +  \beta_{4}(race \ - \ educ) + \beta_{5} \ jobcat 
+    \beta_{0} + (\beta_{3} - \beta_{4}) \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat 
+    \\ 
+    = \beta_{0} + \beta_{3} \ educ - \beta_{4} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat
+    \\ 
+    = \beta_{0} + \beta_{2}\ logssal + \beta_{3} (educ + \ gender) +  \beta_{4}(race \ - \ educ) + \beta_{5} \ jobcat 
 \end{aligned}
 $$
 let $U = educ + gender$  and $V = race - educ$, so
 
-$$
-\beta_{0} + \beta_{2} \ logssal + \beta_{3}U + \beta_{4}V + \beta_{5} \ jobcat
-$$
+\begin {equation}
+    \beta_{0} + \beta_{2} \ logssal + \beta_{3}U + \beta_{4}V + \beta_{5} \ jobcat
+\end {equation}
 
 This expression is our restricted model. We will use these two models for our F-test when we come to test the null hypothesis that $\beta_{1} + \beta_{4} = \beta_{3}$ (tantamount to holding that the two populations A and B have the same `logsal`) against the alternative hypothesis that $\beta_{1} + \beta_{4} \neq \beta_{3}$ (that the two populations A and B do not have the same average `logsal`).
 
@@ -451,9 +467,10 @@ fit4.R <- lm(logsal ~ logssal + U + V + jobcat, data = dat)
 ```
 
 So our restricted model is:
-$$
-\widehat{logsal} = \underset{(0.371)}{3.685} + \underset{(0.043)}{0.636} \ logssal + \underset{(0.012)}{0.023}U  - \underset{(0.012)}{0.003}V + \underset{(0.016)}{0.119} jobcat
-$$
+\begin {equation}
+    \widehat{logsal} = \underset{(0.371)}{3.685} + \underset{(0.043)}{0.636} \ logssal + \underset{(0.012)}{0.023}U  - \underset{(0.012)}{0.003}V + \underset{(0.016)}{0.119} jobcat
+\end {equation}
+
 
 #### (vi)
 
@@ -484,7 +501,7 @@ fcrit4 <- qf(1 - alpha_4 / 2, DF4_num, DF4_denom)
 # tstat4 > fcrit4
 ```
 
-NOTE TO CHANGE THIS LATEX AS THIS ERRONEOUS FROM PREVIOUS MISTAKE!
+<!-- NOTE TO CHANGE THIS LATEX AS THIS ERRONEOUS FROM PREVIOUS MISTAKE! -->
 \begin{align*}
     H_0 &: \beta_1 + \beta_4 = \beta_3\\
     H_1 &: \beta_1 + \beta_4 \neq \beta_3\\
@@ -523,6 +540,11 @@ $$
     = \beta_{4}\\
 \end{aligned}
 $$
+
+\begin {equation}
+    \mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat] = \beta_{4}\\
+\end {equation}
+
 So the racial pay gap for males is $\beta_{4}$.
 
 #### (ii)  
@@ -543,6 +565,9 @@ $$
     = \beta_{4}\\
 \end{aligned}
 $$
+\begin {equation}
+    \mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat] = \beta_{4}\\
+\end {equation}
 So the racial pay gap for females is also $\beta_{4}$.
 
 These results make sense, for another interpretation of $\beta_{4}$ is the partial effect of being in an ethnic minority on the log of an individual's starting salary against not being in an ethnic minority, that is, holding all else constant. Hence, whether or not we are looking at male or female racial pay gap is already accounted for in this model by $\beta_{4}$.
@@ -553,9 +578,9 @@ These results make sense, for another interpretation of $\beta_{4}$ is the parti
 
 To allow in our model for the racial pay gap to vary by gender, we may introduce the interaction term $race \times gender$, allowing `race` to vary as a function of `gender`. Thus,
 
-$$
-\mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat + \beta_{6} \ race \times gender
-$$
+\begin {equation}
+    \mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat + \beta_{6} \ race \times gender
+\end {equation}
 
 #### (ii)  
 
@@ -567,15 +592,18 @@ According to our new model, this is
 
 $$
 \begin{aligned}
-\mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - 
-\mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat] 
-\\ 
-= \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{4} + \beta_{5} \ jobcat + \beta_{6} 
-- (\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{5} \ jobcat) 
-\\ 
-= \beta_{4} + \beta_{6}
+    \mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat] 
+    \\ 
+    = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{4} + \beta_{5} \ jobcat + \beta_{6} 
+    - (\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{5} \ jobcat) 
+    \\ 
+    = \beta_{4} + \beta_{6}
 \end{aligned}
 $$
+
+\begin {equation}
+    \mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat] = \beta_{4} + \beta_{6}
+\end {equation}
 
 So *this* racial pay gap for males is equal to $\beta_{4} + \beta_{6}$.
 
@@ -597,6 +625,10 @@ $$
 = \beta_{4}
 \end{aligned}
 $$
+
+\begin {equation}
+\mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat] = \beta_{4}
+\end {equation}
 
 So *this* racial pay gap for females is equal to $\beta_{4}$.
 
