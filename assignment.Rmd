@@ -3,7 +3,10 @@ title: "ETC2410 Assignment 1"
 author: "Alex Wong, Chelaka Paranahewa, Harjot Channa, Jonas Tiong"
 head-includes:
     - \usepackage{mathtools}
-output: pdf_document
+output: 
+  pdf_document:
+    latex_engine: xelatex
+mainfont: Times New Roman
 ---
 
 ```{r, echo = FALSE, include = FALSE}
