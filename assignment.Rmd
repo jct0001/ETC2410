@@ -1,5 +1,5 @@
 ---
-title: "Group Assignment 1"
+title: "ETC2410 Assignment 1"
 author: "Alex Wong, Chelaka Paranahewa, Harjot Channa, Jonas Tiong"
 output: pdf_document
 ---
