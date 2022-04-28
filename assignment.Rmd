@@ -196,9 +196,11 @@ Since $\beta_{0} = 0$, in a hypothesis test of individual significance at  0.05,
 
 #### Section i
 
-$$
-\widehat{logsal} = \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} \ educ \ + \ \underset{(0.045)}{0.601} \ logssal \ + \ \underset{(0.019)}{0.061} \  gender \ - \ \underset{(0.019)}{0.043} \ race \ + \ underset{(0.016)}{0.121}  \ jobcat
-$$
+\begin{align*}
+    \widehat{logsal} &= \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} \ educ \ + \ \underset{(0.045)}{0.601} \ logssal \ + \ \underset{(0.019)}{0.061} \  gender \ - \ \underset{(0.019)}{0.043} \ race \ + \underset{(0.016)}{0.121}  \ jobcat \\
+    R^2 &: 0.826101 \\
+    n &: 474 \\
+\end{align*}
 
 
 ```{r, warning = FALSE, error = FALSE}
@@ -252,8 +254,8 @@ fcrit2 <- qf(1 - alpha_2 / 2, DF2_num, DF2_denom)
     \text {Significant Level} &: \alpha = 0.05 \\
     \text {Unresticted Model} &: \widehat{logsal} = \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} educ + \underset{(0.045)}{0.601} logssal + \underset{(0.019)}{0.061} gender - \underset{(0.019)}{0.043} race + \underset{(0.016)}{0.121} jobcat\\
     \text {Resticted Model} &: \widehat{logsal} = \underset{(0.018)}{10.357}\\
-    \text {Test stat and null dist} &: \frac{(SSR_R - SSR_{UR})}{SSR_{UR}} \frac{(n-k-1)}{q} \sim F_{(q, n-k-1)} = t_{5, 468} \\
-    t_{calc} &= `r tstat2` \\
+    \text {Test stat and null dist} &: \frac{(SSR_R - SSR_{UR})}{SSR_{UR}} \frac{(n-k-1)}{q} \sim F_{(q, n-k-1)} = F_{5, 468} \\
+    F_{calc} &= `r tstat2` \\
     F_{crit} &= `r fcrit2` \\
     \text {Decision rule} &: \text {reject $H_0$ if $t_{calc} > F_{crit}$} \\
     \text {Decision} &: \text {Since `r tstat2` > `r fcrit2`, reject $H_0$} \\
@@ -273,7 +275,7 @@ Hence *this* average difference is $-0.043$; someone who does not belong to an e
 coef(summary(fit2))[4, "Estimate"] - coef(summary(fit2))[5, "Estimate"]
 ```
 
-*****MATHSPEAK LATER
+***MATHSPEAK LATER***
 
 $\hat{\beta_{3}} - \hat{\beta_{4}} = 0.103$ does not have a meaningful interpretation. This is because $\hat{\beta_{3}}$ is the conditional mean of the log of an individual's annual salary given that they are male and ceteris paribus minus the conditional mean of the log of an individual's annual salary given that they are female and ceteris paribus. $\hat{\beta_{4}}$ is the conditional mean of  the log an individual's annual salary given that they belong to an ethnic minority and ceteris paribus minus the conditional mean of the log of an individual's annual salary given that the do not belong to an ethnic minority and ceteris paribus. Hence, the difference between $\hat{\beta_{3}}$ and $\hat{\beta_{4}}$ is the sum of the conditional mean of an individual's annual salary given that they are male, ceteris paribus (including one's racial status), plus the salary given that they are not part of the ethnic minority, ceteris paribus  (including one's gender), minus the salary given that they are female, ceteris paribus (including one's racial status), minus the salary given that they are part of an ethnic minority, ceteris paribus (including one's gender). The fact that this sum of different means is conditional on different set of variables makes any descriptive application inapplicable to the bank.
 
@@ -306,10 +308,13 @@ vif(fit2) %>%
 
 We are working with the same model prior:
 
-$$
-\widehat{logsal} = \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} \ educ \ + \ \underset{(0.045)}{0.601} \ logssal \ + \ \underset{(0.019)}{0.061} \  gender \ - \ \underset{(0.019)}{0.043} \ race \ + \underset{(0.016)}{0.121}  \ jobcat
-$$
-Our null hypothesis is that an individual's gender and race (whether they belong to an ethnic minority) has no effect on the annual (log of their) salary in this bank ($\beta_3 = \beta_4 = 0$). The alternative hypothesis is that it does have an effect (\beta_3 and/or \beta_4 is non-zero).
+\begin{align*}
+    \widehat{logsal} &= \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} \ educ \ + \ \underset{(0.045)}{0.601} \ logssal \ + \ \underset{(0.019)}{0.061} \  gender \ - \ \underset{(0.019)}{0.043} \ race \ + \underset{(0.016)}{0.121}  \ jobcat \\
+    R^2 &: 0.826101 \\
+    n &: 474 \\
+\end{align*}
+
+Our null hypothesis is that an individual's gender and race (whether they belong to an ethnic minority) has no effect on the annual (log of their) salary in this bank ($\beta_3 = \beta_4 = 0$). The alternative hypothesis is that it does have an effect ($\beta_3$ and/or $\beta_4$ is non-zero).
 
 ```{r, warning = FALSE, error = FALSE}
 
