@@ -7,6 +7,7 @@ output:
   pdf_document:
     latex_engine: xelatex
 mainfont: Times New Roman
+fontsize: 12pt
 ---
 
 ```{r, echo = FALSE, include = FALSE}
@@ -256,7 +257,8 @@ fcrit2 <- qf(1 - alpha_2 / 2, DF2_num, DF2_denom)
     H_0 &: \beta_1 = \beta_2 = \beta_3 = \beta_4 = \beta_5 = 0 \\
     H_1 &: \underset{i \in \{1, 2, 3, 4, 5\}}{\exists} {\beta_i} \neq 0 \text {at least one regressor coef is zero}\\
     \text {Significance Level} &: \alpha = 0.05 \\
-    \text {Unresticted Model} &: \widehat{logsal} = \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} educ + \underset{(0.045)}{0.601} logssal + \underset{(0.019)}{0.061} gender - \underset{(0.019)}{0.043} race + \underset{(0.016)}{0.121} jobcat\\
+    \text {Unresticted Model} &: \widehat{logsal} = \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} educ + \underset{(0.045)}{0.601} logssal + \underset{(0.019)}{0.061} gender \\
+    & - \underset{(0.019)}{0.043} race + \underset{(0.016)}{0.121} jobcat\\
     \text {Resticted Model} &: \widehat{logsal} = \underset{(0.018)}{10.357}\\
     \text {Test stat and null dist} &: \frac{(SSR_R - SSR_{UR})}{SSR_{UR}} \frac{(n-k-1)}{q} \sim F_{(q, n-k-1)} = F_{5, 468} \\
     F_{calc} &= `r tstat2` \\
@@ -361,7 +363,8 @@ fcrit3 <- qf(1 - alpha_3 / 2, DF3_num, DF3_denom)
     H_0 &: \beta_3 = \beta_4 = 0 \\
     H_1 &: \underset{i \in \{3, 4\}}{\exists} {\beta_i} \neq 0 (\beta_3 \ \text {and/or} \beta_4 \textrm {is non zero})\\
     \text {Significance Level} &: \alpha = 0.1 \\
-    \text {Unresticted Model} &: \widehat{logsal} = \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} educ +\underset{(0.045)}{0.601} logssal + \underset{(0.019)}{0.061} gender - \underset{(0.019)}{0.043} race + \underset{(0.016)}{0.121} jobcat\\
+    \text {Unresticted Model} &: \widehat{logsal} = \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} educ +\underset{(0.045)}{0.601} logssal + \underset{(0.019)}{0.061} gender \\
+    & - \underset{(0.019)}{0.043} race + \underset{(0.016)}{0.121} jobcat\\
     \text {Resticted Model} &: \widehat{logsal} = \underset{(0.356)}{3.439} + \underset{(0.004)}{0.0241} educ + \underset{(0.041)}{0.665} logssal + \underset{(0.016)}{0.117} jobcat\\
     \text {Test stat and null dist} &: \frac{(SSR_R - SSR_{UR})}{SSR_{UR}} \frac{(n-k-1)}{q} \sim F(q, n-k-1) = F(2, 468) \\
     F_{calc} &= `r tstat3` \\
@@ -377,7 +380,10 @@ In conclusion, at 0.05 level of significance, we reject the null hypothesis that
 
 Given that 
 $$
-\mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat
+\begin{aligned}
+\mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race \\
++ \beta_{5} \ jobcat
+\end{aligned}
 $$
 then our estimated conditional mean has form:
 $$
@@ -419,11 +425,22 @@ $$
 
 #### (iii)  
 
-Given the null hypothesis that the average `logsal` of population A is equal to that of population B $\mathbb{E}[logsal \mid educ = 12, gender = 0, race = 1, jobcat = 3, logssal] = \mathbb{E}[logsal \mid educ = 11, gender = 1, race = 0, jobcat = 3, logssal]$, it follows that:
+Given the null hypothesis that the average `logsal` of population A is equal to that of population B 
+$$
+\begin{aligned}
+\mathbb{E}[logsal \mid educ = 12, gender = 0, race = 1, jobcat = 3, logssal] = \\
+\mathbb{E}[logsal \mid educ = 11, gender = 1, race = 0, jobcat = 3, logssal]
+\end{aligned}
+$$, it follows that:
 
-$\mathbb{E}[logsal \mid educ = 12, gender = 0, race = 1, jobcat = 3, logssal] - \mathbb{E}[logsal \mid educ = 11, gender = 1, race = 0, jobcat = 3, logssal] = 0$
+$$
+\begin{aligned}
+\mathbb{E}[logsal \mid educ = 12, gender = 0, race = 1, jobcat = 3, logssal] \\
+- \mathbb{E}[logsal \mid educ = 11, gender = 1, race = 0, jobcat = 3, logssal] = 0
+\end{aligned}
+$$
 
-$(\beta_{0} + 12\beta_{1} + \beta_{4} + 3\beta_{5}) + \beta_{2} \ logssal - (\beta_{0} + 11\beta_{1} + \beta_{3} + 3\beta_{5}) - \beta_{2} \ logssal = \beta_{1} + \beta_{4} - \beta_{3} = 0$
+$$(\beta_{0} + 12\beta_{1} + \beta_{4} + 3\beta_{5}) + \beta_{2} \ logssal - (\beta_{0} + 11\beta_{1} + \beta_{3} + 3\beta_{5}) - \beta_{2} \ logssal = \beta_{1} + \beta_{4} - \beta_{3} = 0$$
 
 So the restriction that follows from the null hypothesis is that $\beta_{1} + \beta_{4} = \beta_{3}$. The negation of this statement is that $\beta_{1} + \beta_{4} \neq \beta_{3}$ which is the alternative hypothesis, where the average `logsal` of population A is not equal to that of population B.
 
@@ -432,9 +449,10 @@ So the restriction that follows from the null hypothesis is that $\beta_{1} + \b
 Under the null hypothesis, $\beta_{1} + \beta_{4} = \beta_{3}$. So, rearranging to get $\beta_{1} = \beta_{3} - \beta_{4}$ we can substitute this into our unrestricted model (the population model):
 
 $$
-\mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + 
-\beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race 
+\begin{aligned}
+\mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race \\ 
 + \beta_{5} \ jobcat
+\end{aligned}
 $$
 
 to get:
@@ -511,8 +529,10 @@ fcrit4 <- qf(1 - alpha_4 / 2, DF4_num, DF4_denom)
     \text {Significance Level} &: \alpha = 0.1 \\
     U &: educ + gender\\
     V &: race - educ\\
-    \text {Unresticted Model} &: \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} educ + \underset{(0.045)}{0.601} logssal + \underset{(0.019)}{0.061} gender - \underset{(0.019)}{0.043} race + \underset{(0.016)}{0.121} jobcat\\
-    \text {Resticted Model} &: \widehat{logsal} = \underset{(0.370848)}{3.684869} + \underset{(0.042768)}{0.635941}logssal + \underset{(0.012260)}{0.022563}U - \underset{(0.012137)}{0.002899}V + \underset{(0.015798)}{0.118732} jobcat\\
+    \text {Unresticted Model} &: \widehat{logsal} = \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} educ + \underset{(0.045)}{0.601} logssal + \underset{(0.019)}{0.061} gender \\
+    & - \underset{(0.019)}{0.043} race + \underset{(0.016)}{0.121} jobcat\\
+    \text {Resticted Model} &: \widehat{logsal} = \underset{(0.370848)}{3.684869} + \underset{(0.042768)}{0.635941}logssal + \underset{(0.012260)}{0.022563}U - \underset{(0.012137)}{0.002899}V \\
+    & + \underset{(0.015798)}{0.118732} jobcat\\
     \text {Test stat and null dist} &: \frac{(SSR_R - SSR_{UR})}{SSR_{UR}} \frac{(n-k-1)}{q} \sim F(q, n-k-1) = F(2, 468) \\
     F_{calc} &= `r tstat4` \\
     F_{crit} &= `r fcrit4` \\
@@ -527,50 +547,67 @@ In conclusion, at 0.05 level of significance, we reject the null hypothesis that
 
 By definition, the racial pay gap for males is:
 $$
-\mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat]
+\begin{aligned}
+\mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] \\
+- \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat]
+\end{aligned}
 $$
 
 Given
 $$
-\mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat
+\begin{aligned}
+\mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race \\ 
++ \beta_{5} \ jobcat
+\end{aligned}
 $$
 it follows that:
 
 $$
 \begin{aligned} 
-    \mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat] \\
-    = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{4} + \beta_{5} \ jobcat - (\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{5} \ jobcat) \\ 
+    \mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] \\
+    - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat] \\
+    = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{4} + \beta_{5} \ jobcat \\
+    - (\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{5} \ jobcat) \\ 
     = \beta_{4}\\
 \end{aligned}
 $$
 
-\begin {equation}
-    \mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat] = \beta_{4}\\
-\end {equation}
+\begin {multline}
+    \mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 1, \\ race = 0, educ, logssal, jobcat] = \beta_{4}
+\end {multline}
 
 So the racial pay gap for males is $\beta_{4}$.
 
 #### (ii)  
 By definition, the racial pay gap for females is:
 $$
-\mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat
+\begin{aligned}
+\mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] \\
+- \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat
+\end{aligned}
 $$
 Given
 $$
-\mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat
+\begin{aligned}
+\mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race \\
++ \beta_{5} \ jobcat
+\end{aligned}
 $$
 it follows that:
 
 $$
 \begin{aligned}
-    \mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat] \\ 
-    = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{4} + \beta_{5} \ jobcat - (\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{5} \ jobcat) \\ 
+    \mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] \\
+    - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat] \\ 
+    = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{4} + \beta_{5} \ jobcat \\
+    - (\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{5} \ jobcat) \\ 
     = \beta_{4}\\
 \end{aligned}
 $$
-\begin {equation}
-    \mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat] = \beta_{4}\\
-\end {equation}
+\begin {multline}
+    \mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] \\
+    - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat] = \beta_{4}
+\end {multline}
 So the racial pay gap for females is also $\beta_{4}$.
 
 These results make sense, for another interpretation of $\beta_{4}$ is the partial effect of being in an ethnic minority on the log of an individual's starting salary against not being in an ethnic minority, that is, holding all else constant. Hence, whether or not we are looking at male or female racial pay gap is already accounted for in this model by $\beta_{4}$.
@@ -581,32 +618,36 @@ These results make sense, for another interpretation of $\beta_{4}$ is the parti
 
 To allow in our model for the racial pay gap to vary by gender, we may introduce the interaction term $race \times gender$, allowing `race` to vary as a function of `gender`. Thus,
 
-\begin {equation}
-    \mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender + \beta_{4} \ race + \beta_{5} \ jobcat + \beta_{6} \ race \times gender
-\end {equation}
+\begin {multline}
+    \mathbb{E}[logsal \mid educ, logssal, gender, race, jobcat] = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} \ gender \\
+    + \beta_{4} \ race + \beta_{5} \ jobcat + \beta_{6} \ race \times gender
+\end {multline}
 
 #### (ii)  
 
 The racial pay gap for males, controlling for education, starting salary, and job category is:
 $$
-\mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat]
+\begin{aligned}
+\mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] \\
+- \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat]
+\end{aligned}
 $$
 According to our new model, this is
 
 $$
 \begin{aligned}
-    \mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat] 
-    \\ 
-    = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{4} + \beta_{5} \ jobcat + \beta_{6} 
-    - (\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{5} \ jobcat) 
-    \\ 
+    \mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] \\
+    - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat] \\ 
+    = \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{4} + \beta_{5} \ jobcat + \beta_{6} \\
+    - (\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{3} + \beta_{5} \ jobcat) \\ 
     = \beta_{4} + \beta_{6}
 \end{aligned}
 $$
 
-\begin {equation}
-    \mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat] = \beta_{4} + \beta_{6}
-\end {equation}
+\begin {multline}
+    \mathbb{E}[logsal \mid gender = 1, race =1, educ, logssal, jobcat] \\
+    - \mathbb{E}[logsal \mid gender = 1, race = 0, educ, logssal, jobcat] = \beta_{4} + \beta_{6}
+\end {multline}
 
 So *this* racial pay gap for males is equal to $\beta_{4} + \beta_{6}$.
 
@@ -614,24 +655,27 @@ So *this* racial pay gap for males is equal to $\beta_{4} + \beta_{6}$.
 
 The racial pay grap for females, controlling for education, starting salary, and job category is:
 $$
-\mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat]
+\begin{aligned}
+\mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] \\
+- \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat]
+\end{aligned}
 $$
 According to our new model, this is
 
 $$
 \begin{aligned}
-\mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat] 
-\\ 
-= \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{4} + \beta_{5} \ jobcat
-- (\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{5} \ jobcat) 
-\\ 
+\mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] \\
+- \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat] \\ 
+= \beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{4} + \beta_{5} \ jobcat \\
+- (\beta_{0} + \beta_{1} \ educ + \beta_{2} \ logssal + \beta_{5} \ jobcat) \\ 
 = \beta_{4}
 \end{aligned}
 $$
 
-\begin {equation}
-\mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat] = \beta_{4}
-\end {equation}
+\begin {multline}
+    \mathbb{E}[logsal \mid gender = 0, race =1, educ, logssal, jobcat] \\
+    - \mathbb{E}[logsal \mid gender = 0, race = 0, educ, logssal, jobcat] = \beta_{4}
+\end {multline}
 
 So *this* racial pay gap for females is equal to $\beta_{4}$.
 
