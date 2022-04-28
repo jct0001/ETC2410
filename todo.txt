@@ -1,6 +1,5 @@
 TBD:
 - refer to commented pdf for edits. Some comments will require Jonas to fix it himself or interpret what he means
-- label all final equations with a number to reflect criteria
 - q2 change the use of the word "equation" to "property"
 - Jonas needs to do q3 (c)
 - Jonas needs to fix that one question in (q1) that has MATHSPEAK on it 
