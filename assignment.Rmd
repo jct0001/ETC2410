@@ -1,6 +1,8 @@
 ---
 title: "ETC2410 Assignment 1"
 author: "Alex Wong, Chelaka Paranahewa, Harjot Channa, Jonas Tiong"
+head-includes:
+    - \usepackage{mathtools}
 output: pdf_document
 ---
 
@@ -271,10 +273,8 @@ Hence *this* average difference is $-0.043$; someone who does not belong to an e
 #### (v)
 
 ```{r, warning = FALSE, error = FALSE}
-coef(summary(fit2))[4, "Estimate"] - coef(summary(fit2))[5, "Estimate"]
+# coef(summary(fit2))[4, "Estimate"] - coef(summary(fit2))[5, "Estimate"]
 ```
-
-***MATHSPEAK LATER***
 
 $\hat{\beta_{3}} - \hat{\beta_{4}} = 0.103$. This means that an individual in the bank who is male and does not belong to an ethnic minority, on average controlling for education, their starting salary, and job category, earns 0.103 more than a female and does belong to an ethnic minority in (the log of) their annual salary. In other words, a male who does not belong to an ethnic minority earns $e^{0.103}$ times their counterpart (female and belongs to an ethnic minority) annually in salaries, on average, controlling for education, their starting salary, and job category.
 
@@ -669,3 +669,69 @@ tcrit5 <- qt(1 - alpha_5 / 2, 467)
     \text {Decision} &: \text {Since `r abs(tstat5)` > `r tcrit5`, reject $H_0$} \\
 \end{align*}
 In conclusion, at 0.10 level of significance, we reject the null hypothesis that, controlling for education, starting salary, and job category, the racial pay gap for males and females is the same in favour of the alternative hypothesis that they are not.
+
+\newpage
+
+# Question 2
+### (a)
+\begin{align*}
+    \hat{u}_i &= residuals \\
+    {\hat{u}}_i &= y_i-{\hat{y}}_i,\ i = 1, 2, ... n && \text {from Assignment Property (7)}\\
+    &= y_i-\left({\hat{\beta}}_o+{\hat{\beta}}_1x_i\right) && \text {by definition } \hat y_i = \hat \beta_0 + \hat \beta_1 x_i\\
+    &= y_i-{\hat{\beta}}_o-{\hat{\beta}}_1x_i
+\end{align*}
+
+\begin{align*}
+    \sum _{i=1}^n \hat{u}_i &= \sum_{i=1}^{n}{y_i - (\hat \beta_0 + \hat \beta_1 x_i)} \\
+    &= \sum_{i=1}^{n}{y_i} - \sum_{i=1}^{n}{(\hat \beta_0 + \hat \beta_1 x_{i})} \\
+    &= \sum_{i=1}^{n}{y_i} - \sum_{i=1}^{n}{\hat \beta_0} - \sum_{i=1}^n{\hat \beta_1 x_{i}} \\
+    &= \sum_{i=1}^{n}{y_i} - \sum_{i=1}^n{\hat \beta_1 x_{i}} - n{\hat \beta_0} && \text {rearranging terms and summing $\hat \beta_0$} \\
+    &= \frac{n}{n} \sum_{i=1}^{n}{y_i} - \frac{n}{n} \sum_{i=1}^n{\hat \beta_1 x_{i}} - n{\hat \beta_0} && \text {times first and second sum by $\frac{n}{n}$} \\
+    &= n \bar y - n \hat \beta_i \bar{x} - n \hat \beta_0 \\
+    &= n \bar y - n \hat \beta_i \bar{x} - n (\bar y - \hat \beta_i \bar{x}) && \text {substituting from Assignment Property (6)} \\
+    &= n \bar y - n \hat \beta_i \bar{x} - n \bar y + n\hat \beta_i \bar{x} \\
+    &= n \bar y - n \bar y - n \hat \beta_i \bar{x} + n\hat \beta_i \bar{x} \\
+    &= 0
+\end{align*}
+
+
+### (b)
+
+\begin{align*}
+    SSR\ \left(b_0,b_1\right) &=\sum_{i=1}^{n}\left(y_i-b_0-b_1x_i\right)^2 \\
+    \left.\frac{\partial SSR\left(b_0,b_1\right)}{\partial b_0}\right|_{{\hat{\beta}}_0,{\hat{\beta}}_1} &= -2\sum_{i=1}^{n}{\left(y_i- \hat \beta_0-\hat \beta_1x_i\right)=0} \\
+    \left.\frac{\partial SSR\left(b_0,b_1\right)}{\partial b_i}\right|_{{\hat{\beta}}_0,{\hat{\beta}}_1} &= -2\sum_{i=1}^{n}{x_i\left(y_i-\hat \beta_0-\hat \beta_1x_i\right)=0} && \text {call this (1)} \\
+    \\
+    {\hat{u}}_i &= y_i-{\hat{y}}_i,\ i = 1, 2, ... n && \text {from Assignment Property (7)}\\
+    &= y_i-\left({\hat{\beta}}_o+{\hat{\beta}}_1x_i\right) && \text {by definition } \hat y_i = \hat \beta_0 + \hat \beta_1 x_i\\
+    &= y_i-{\hat{\beta}}_o-{\hat{\beta}}_1x_i && \text {call this (2)}\\
+\end{align*}
+
+\begin{align*}
+    -2\sum_{i=1}^{n}x_i (\hat u_i) &= 0 && \text {substituting (2) into (1)} \\
+    \sum_{i=1}^{n}x_i \hat u_i &= 0 && \text {call this (3)}
+\end{align*}
+
+Now if 
+$\boldsymbol{x} = \underset{(n \times 1)}{
+\begin{pmatrix}
+    x_{1} \\
+    \vdots \\
+    x_{n}
+\end{pmatrix}}$ and 
+$\boldsymbol{\hat u} =\underset{(n \times 1)}{ 
+\begin{pmatrix}
+    \hat u_{1} \\
+    \vdots \\
+    \hat u_{n}
+\end{pmatrix}}$ then
+the dot product is 
+
+\begin{align*}
+    {\boldsymbol{x' \hat u}} &= \begin{pmatrix} x_{1} && ... && x_{n} \end{pmatrix}
+    \begin{pmatrix} \hat u_{1} \\ \vdots \\ \hat u_{n} \end{pmatrix} \\
+    &= x_1 \hat u_1 +\ ...\ + x_n \hat u_n && \text {just the linear combinations of column vector ${\boldsymbol u}$}\\
+    & && \text {where the scalars are the components of ${\boldsymbol{x}}$} \\
+    &= \sum_{i=1}^{n}x_i \hat u_i \\
+    &= 0 && \text {from (3)}
+\end{align*}
