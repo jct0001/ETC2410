@@ -250,7 +250,7 @@ fcrit2 <- qf(1 - alpha_2 / 2, DF2_num, DF2_denom)
 
 \begin{align*}
     H_0 &: \beta_1 = \beta_2 = \beta_3 = \beta_4 = \beta_5 = 0 \\
-    H_1 &: \underset{i \in \{1, 2, 3, 4, 5\}}{\exists} {\beta_i} \neq 0 \\
+    H_1 &: \underset{i \in \{1, 2, 3, 4, 5\}}{\exists} {\beta_i} \neq 0 \text {at least one regressor coef is zero}\\
     \text {Significant Level} &: \alpha = 0.05 \\
     \text {Unresticted Model} &: \widehat{logsal} = \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} educ + \underset{(0.045)}{0.601} logssal + \underset{(0.019)}{0.061} gender - \underset{(0.019)}{0.043} race + \underset{(0.016)}{0.121} jobcat\\
     \text {Resticted Model} &: \widehat{logsal} = \underset{(0.018)}{10.357}\\
@@ -298,9 +298,11 @@ cbind(
     )
 ) %>% kable()
 
-vif(fit2) %>%
-    # as_tibble() %>%
-    # rename("VIF" = value) %>%
+vifout <- vif(fit2) %>%
+    as_tibble() %>%
+    rename("VIF" = value)
+tibble("Regressor" = c("educ", "logssal", "gender", "race", "jobcat")) %>%
+    cbind(vifout) %>%
     kable()
 ```
 
@@ -352,7 +354,7 @@ fcrit3 <- qf(1 - alpha_3 / 2, DF3_num, DF3_denom)
 
 \begin{align*}
     H_0 &: \beta_3 = \beta_4 = 0 \\
-    H_1 &: \underset{i \in \{3, 4\}}{\exists} {\beta_i} \neq 0 \\
+    H_1 &: \underset{i \in \{3, 4\}}{\exists} {\beta_i} \neq 0 (\beta_3 \text {and/or} \beta_4 is non zero)\\
     \text {Significant Level} &: \alpha = 0.1 \\
     \text {Unresticted Model} &: \widehat{logsal} = \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} educ +\underset{(0.045)}{0.601} logssal + \underset{(0.019)}{0.061} gender - \underset{(0.019)}{0.043} race + \underset{(0.016)}{0.121} jobcat\\
     \text {Resticted Model} &: \widehat{logsal} = \underset{(0.356)}{3.439} + \underset{(0.004)}{0.0241} educ + \underset{(0.041)}{0.665} logssal + \underset{(0.016)}{0.117} jobcat\\
@@ -490,8 +492,10 @@ fcrit4 <- qf(1 - alpha_4 / 2, DF4_num, DF4_denom)
 
 NOTE TO CHANGE THIS LATEX AS THIS ERRONEOUS FROM PREVIOUS MISTAKE!
 \begin{align*}
-    H_0 &: \beta_3 = \beta_4 = 0 \\
-    H_1 &: \underset{i \in \{3, 4\}}{\exists} {\beta_i} \neq 0 \\
+    U &: educ + gender\\
+    V &: \\
+    H_0 &: \\
+    H_1 &: \\
     \text {Significant Level} &: \alpha = 0.1 \\
     \text {Unresticted Model} &: \underset{(0.390)}{4.026} + \underset{(0.004)}{0.024} educ + \underset{(0.045)}{0.601} logssal + \underset{(0.019)}{0.061} gender - \underset{(0.019)}{0.043} race + \underset{(0.016)}{0.121} jobcat\\
     \text {Resticted Model} &: \widehat{logsal} = \underset{(0.164)}{8.282} - \underset{(0.020)}{0.120}U + \underset{(0.019)}{0.160} gender - \underset{(0.019)}{0.160}V + \underset{(0.015)}{0.227} jobcat\\
