@@ -60,17 +60,16 @@ On average, an individual in this bank will have a log of annual salary of aroun
 
 Scatterplot of `logsal` and `race`
 ```{r, warning = FALSE, error = FALSE, echo = FALSE, fig.align='center'}
-dat %>% ggplot(aes(y = race, x = logsal)) +
+dat %>% ggplot(aes(x = race, y = logsal)) +
     geom_point() +
     # scale_y_continuous(breaks = c(0, 1), minor_breaks = NULL) +
-    ylim(-1, 2) +
-    labs(
-        title = "logsal v race"
-    )
+    xlim(-1, 2) +
+    labs(title = "logsal v race")
 ```
 
 \begin{align*}
-    \text {RACE} &: \text {1 if individual i belongs to an ethnic minority, 0 otherwise}\\
+    \text {race} &: \text {1 if individual i belongs to an ethnic minority, 0 otherwise}\\
+    \text {logsal} &: \text {the natural log of individual i’s annual salary}\\
 \end{align*}
 
 #### Section ii  
@@ -81,9 +80,11 @@ Recall from part (a)ii) that the mean of `logsal` was around 10.36. From the sca
 
 #### Section i
 
-$$
-\widehat{logsal} = \underset{(0.020)}{10.396} - \underset{(0.043)}{0.180} \ race
-$$
+\begin{align*}
+    \widehat{logsal} &= \underset{(0.020)}{10.396} - \underset{(0.043)}{0.180} \ race \\
+    R^2 &: 0.035414 \\
+    n &: 474 \\
+\end{align*}
 
 ```{r, warning = FALSE, error = FALSE, echo = FALSE}
 
