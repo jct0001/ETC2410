@@ -1,0 +1,46 @@
+---
+title: "ETC2410 Assignment 2"
+author: "Alex Wong, Chelaka Paranahewa, Harjot Channa, Jonas Tiong"
+head-includes:
+    - \usepackage{mathtools}
+output: 
+    pdf_document:
+    latex_engine: xelatex
+mainfont: Times New Roman
+fontsize: 12pt
+---
+
+```{r Setup, echo = FALSE}
+library(tidyverse)
+library(fpp3)
+db <- read.csv2(
+    file = "https://raw.githubusercontent.com/jct0001/ETC2410/e71f2d7b2b4ad672334732a410a7df0ce6f07078/Assignment%202/HOUSTNSA.csv",
+    sep = ","
+)
+
+db <- db %>%
+    as_tibble() %>%
+    mutate(
+        DATE = yearmonth(DATE),
+        HOUSTNSA = as.numeric(HOUSTNSA)
+    ) %>%
+    as_tsibble()
+
+
+db %>% autoplot(HOUSTNSA)
+db %>% gg_season(labels = "both")
+db %>% gg_subseries()
+
+db$Jan <- ifelse(month(db$DATE) == 1, 1, 0)
+db$Feb <- ifelse(month(db$DATE) == 2, 1, 0)
+db$Mar <- ifelse(month(db$DATE) == 3, 1, 0)
+db$Apr <- ifelse(month(db$DATE) == 4, 1, 0)
+db$May <- ifelse(month(db$DATE) == 5, 1, 0)
+db$Jun <- ifelse(month(db$DATE) == 6, 1, 0)
+db$Jul <- ifelse(month(db$DATE) == 7, 1, 0)
+db$Aug <- ifelse(month(db$DATE) == 8, 1, 0)
+db$Sep <- ifelse(month(db$DATE) == 9, 1, 0)
+db$Oct <- ifelse(month(db$DATE) == 10, 1, 0)
+db$Nov <- ifelse(month(db$DATE) == 11, 1, 0)
+```
+
