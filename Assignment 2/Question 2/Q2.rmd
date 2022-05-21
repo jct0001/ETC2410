@@ -5,16 +5,28 @@ head-includes:
     - \usepackage{mathtools}
 output: 
     pdf_document:
+        df_print: kable
     latex_engine: xelatex
 mainfont: Times New Roman
 fontsize: 12pt
 ---
 
-```{r Setup, echo = FALSE}
+# **Question 2 (31 Marks)**
+
+```{r Setup, echo = FALSE, warning = FALSE, error = FALSE, message = FALSE}
 library(tidyverse)
 library(fpp3)
+library(knitr)
+
+knitr::opts_chunk$set(
+    echo = FALSE,
+    warning = FALSE,
+    error = FALSE,
+    message = FALSE
+)
+
 db <- read.csv2(
-    file = "https://raw.githubusercontent.com/jct0001/ETC2410/e71f2d7b2b4ad672334732a410a7df0ce6f07078/Assignment%202/HOUSTNSA.csv",
+    file = "Assignment 2/Data/HOUSTNSA.csv",
     sep = ","
 )
 
@@ -25,11 +37,6 @@ db <- db %>%
         HOUSTNSA = as.numeric(HOUSTNSA)
     ) %>%
     as_tsibble()
-
-
-db %>% autoplot(HOUSTNSA)
-db %>% gg_season(labels = "both")
-db %>% gg_subseries()
 
 db$Jan <- ifelse(month(db$DATE) == 1, 1, 0)
 db$Feb <- ifelse(month(db$DATE) == 2, 1, 0)
@@ -44,3 +51,40 @@ db$Oct <- ifelse(month(db$DATE) == 10, 1, 0)
 db$Nov <- ifelse(month(db$DATE) == 11, 1, 0)
 ```
 
+## 2(a)
+```{r}
+lmObj <- lm(
+    HOUSTNSA ~ Jan + Feb + Mar + Apr +
+        May + Jun + Jul + Aug + Sep + Oct + Nov,
+    data = db
+)
+summary(lmObj)
+```
+<!-- Analysis -->
+\begin {equation}
+    \widehat{logsal} = \underset{(0.020)}{10.396} - \underset{(0.043)}{0.180} \ race
+\end {equation}
+
+## 2(b)
+```{r}
+
+```
+<!-- Analysis -->
+
+## 2(c)
+```{r}
+
+```
+<!-- Analysis -->
+
+## 2(d)
+```{r}
+
+```
+<!-- Analysis -->
+
+## 2(e)
+```{r}
+
+```
+<!-- Analysis -->
