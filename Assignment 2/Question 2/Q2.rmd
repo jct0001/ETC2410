@@ -1,11 +1,12 @@
 ---
 title: "ETC2410 Assignment 2"
 author: "Alex Wong, Chelaka Paranahewa, Harjot Channa, Jonas Tiong"
-head-includes:
-    - \usepackage{mathtools}
+
 output: 
     pdf_document:
         df_print: kable
+        fig_caption: yes
+        extra_dependencies: ["mathtools", "amsmath", "flexisym", "breqn"]
     latex_engine: xelatex
 mainfont: Times New Roman
 fontsize: 12pt
@@ -17,7 +18,6 @@ fontsize: 12pt
 library(tidyverse)
 library(fpp3)
 library(knitr)
-library(dynlm)
 
 knitr::opts_chunk$set(
     echo = FALSE,
@@ -39,22 +39,23 @@ db <- db %>%
     ) %>%
     as_tsibble()
 
-db$Jan <- ifelse(month(db$DATE) == 1, 1, 0)
-db$Feb <- ifelse(month(db$DATE) == 2, 1, 0)
-db$Mar <- ifelse(month(db$DATE) == 3, 1, 0)
-db$Apr <- ifelse(month(db$DATE) == 4, 1, 0)
-db$May <- ifelse(month(db$DATE) == 5, 1, 0)
-db$Jun <- ifelse(month(db$DATE) == 6, 1, 0)
-db$Jul <- ifelse(month(db$DATE) == 7, 1, 0)
-db$Aug <- ifelse(month(db$DATE) == 8, 1, 0)
-db$Sep <- ifelse(month(db$DATE) == 9, 1, 0)
-db$Oct <- ifelse(month(db$DATE) == 10, 1, 0)
-db$Nov <- ifelse(month(db$DATE) == 11, 1, 0)
+db$Jan <- ifelse(month(db$DATE) == 1, 1, 0) # nolint
+db$Feb <- ifelse(month(db$DATE) == 2, 1, 0) # nolint
+db$Mar <- ifelse(month(db$DATE) == 3, 1, 0) # nolint
+db$Apr <- ifelse(month(db$DATE) == 4, 1, 0) # nolint
+db$May <- ifelse(month(db$DATE) == 5, 1, 0) # nolint
+db$Jun <- ifelse(month(db$DATE) == 6, 1, 0) # nolint
+db$Jul <- ifelse(month(db$DATE) == 7, 1, 0) # nolint
+db$Aug <- ifelse(month(db$DATE) == 8, 1, 0) # nolint
+db$Sep <- ifelse(month(db$DATE) == 9, 1, 0) # nolint
+db$Oct <- ifelse(month(db$DATE) == 10, 1, 0) # nolint
+db$Nov <- ifelse(month(db$DATE) == 11, 1, 0) # nolint
 ```
 
 ## 2(a)
-```{r}
-lmObj <- lm(
+
+```{r, echo=FALSE}
+lmObj <- lm( # nolint
     HOUSTNSA ~ Jan + Feb + Mar + Apr +
         May + Jun + Jul + Aug + Sep + Oct + Nov,
     data = db
@@ -78,7 +79,8 @@ lmObj <- lm(
 
 
 ## 2(b)
-```{r}
+
+```{r, eval=FALSE, echo=FALSE}
 db2 <- read.csv2(
     file = "Assignment 2/Data/HOUSTNSA.csv",
     sep = ","
@@ -92,19 +94,19 @@ db2 <- db2 %>%
     ) %>%
     as_tsibble()
 
-db2$Feb <- ifelse(month(db2$DATE) == 2, 1, 0)
-db2$Mar <- ifelse(month(db2$DATE) == 3, 1, 0)
-db2$Apr <- ifelse(month(db2$DATE) == 4, 1, 0)
-db2$May <- ifelse(month(db2$DATE) == 5, 1, 0)
-db2$Jun <- ifelse(month(db2$DATE) == 6, 1, 0)
-db2$Jul <- ifelse(month(db2$DATE) == 7, 1, 0)
-db2$Aug <- ifelse(month(db2$DATE) == 8, 1, 0)
-db2$Sep <- ifelse(month(db2$DATE) == 9, 1, 0)
-db2$Oct <- ifelse(month(db2$DATE) == 10, 1, 0)
-db2$Nov <- ifelse(month(db2$DATE) == 11, 1, 0)
-db2$Dec <- ifelse(month(db2$DATE) == 12, 1, 0)
+db2$Feb <- ifelse(month(db2$DATE) == 2, 1, 0) # nolint
+db2$Mar <- ifelse(month(db2$DATE) == 3, 1, 0) # nolint
+db2$Apr <- ifelse(month(db2$DATE) == 4, 1, 0) # nolint
+db2$May <- ifelse(month(db2$DATE) == 5, 1, 0) # nolint
+db2$Jun <- ifelse(month(db2$DATE) == 6, 1, 0) # nolint
+db2$Jul <- ifelse(month(db2$DATE) == 7, 1, 0) # nolint
+db2$Aug <- ifelse(month(db2$DATE) == 8, 1, 0) # nolint
+db2$Sep <- ifelse(month(db2$DATE) == 9, 1, 0) # nolint
+db2$Oct <- ifelse(month(db2$DATE) == 10, 1, 0) # nolint
+db2$Nov <- ifelse(month(db2$DATE) == 11, 1, 0) # nolint
+db2$Dec <- ifelse(month(db2$DATE) == 12, 1, 0) # nolint
 
-lmObj2 <- dynlm(
+lmObj2 <- lm( # nolint
     HOUSTNSA ~ Feb + Mar + Apr + May + Jun +
         Jul + Aug + Sep + Oct + Nov + Dec,
     data = db2
@@ -112,6 +114,7 @@ lmObj2 <- dynlm(
 ```
 <!-- Analysis -->
 ### Steps
+
 In order to formulate the linear regression, first we need to determine the intercept:
 From equation 1 we can determine the values of each month because of the dummy variables.
 $92.871 - 4.592  = c \rightarrow c = 88.280$, where the LHS is the month of Jan from calculated from equation 1. 
@@ -170,19 +173,35 @@ Next we need to determine the $\beta$ values for Feb - Dec. Since we know the in
 
 
 ## 2(c)
-```{r}
 
+```{r my-plots, dev='png', fig.show='hide', echo=FALSE}
+
+acf(
+    lmObj$residuals,
+    type = "correlation",
+    lag.max = 36,
+    main = "Residuals ACF plot",
+    sub = "HOUSTNSA ~ c + Jan + Feb + Mar + Apr + May + Jun + Jul + Aug + Sep + Oct + Nov"
+)
+
+acf(
+    lm(HOUSTNSA ~ 1, data = db)$residuals,
+    type = "correlation",
+    lag.max = 36,
+    main = "Residuals ACF plot",
+    sub = "HOUSTNSA ~ c"
+)
 ```
 <!-- Analysis -->
 
 ## 2(d)
-```{r}
 
+```{r, echo=FALSE}
 ```
 <!-- Analysis -->
 
 ## 2(e)
-```{r}
 
+```{r, echo=FALSE}
 ```
 <!-- Analysis -->
