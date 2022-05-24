@@ -6,6 +6,7 @@ output:
     pdf_document:
         df_print: kable
         fig_caption: yes
+        fig_crop: no
         extra_dependencies: ["mathtools", "amsmath", "flexisym", "breqn"]
     latex_engine: xelatex
 mainfont: Times New Roman
@@ -52,7 +53,7 @@ db$Oct <- ifelse(month(db$DATE) == 10, 1, 0) # nolint
 db$Nov <- ifelse(month(db$DATE) == 11, 1, 0) # nolint
 ```
 
-## 2(a)
+## 2(a) (4 marks)
 
 ```{r, echo=FALSE}
 lmObj <- lm( # nolint
@@ -61,6 +62,7 @@ lmObj <- lm( # nolint
     data = db
 )
 ```
+
 <!-- Analysis -->
 \begin {dmath}
     \widehat{HOUSTNSA} =      \underset{(4.196)}{92.871}
@@ -77,8 +79,12 @@ lmObj <- lm( # nolint
                         \ + \ \underset{(5.934)}{15.600}\ Nov
 \end {dmath}
 
+The above linear regression estimates the US monthly 'housing starts' based on the month that is being modelled.
+The intercept on its own implies that estimated 'housing starts' for the month of December, which means the other values are relative to the 'housing starts' of december.
+The variables in the linear regression are seasonal dummies which mean they only take a biary value (0 or 1). 
+The $\beta$ values for the seasonal dummies are the average change in the 'housing starts' relative to the month December. 
 
-## 2(b)
+## 2(b) (4 marks)
 
 ```{r, eval=FALSE, echo=FALSE}
 db2 <- read.csv2(
@@ -112,6 +118,7 @@ lmObj2 <- lm( # nolint
     data = db2
 )
 ```
+
 <!-- Analysis -->
 ### Steps
 
@@ -121,39 +128,39 @@ $92.871 - 4.592  = c \rightarrow c = 88.280$, where the LHS is the month of Jan 
 
 Next we need to determine the $\beta$ values for Feb - Dec. Since we know the intercept for the new equation, we can substitute it in.
 \begin {align*}
-92.871 + 1.935  &= 88.280 + \beta_2 \ Feb  \\ 
-                &\rightarrow \ \beta_2 = 2.656 \\
-                \\
-92.871 + 26.184 &= 88.280 + \beta_3 \ Mar  \\ 
-                &\rightarrow \ \beta_3 = 30.776 \\
-                \\
-92.871 + 41.452 &= 88.280 + \beta_4 \ Apr  \\ 
-                &\rightarrow \ \beta_4 = 46.044 \\
-                \\
-92.871 + 46.786 &= 88.280 + \beta_5 \ May  \\ 
-                &\rightarrow \ \beta_5 = 51.377 \\
-                \\
-92.871 + 46.263 &= 88.280 + \beta_6 \ Jun  \\ 
-                &\rightarrow \ \beta_6 = 50.855 \\
-                \\
-92.871 + 40.937 &= 88.280 + \beta_7 \ Jul  \\ 
-                &\rightarrow \ \beta_7 = 45.528 \\
-                \\
-92.871 + 38.714 &= 88.280 + \beta_8 \ Aug  \\ 
-                &\rightarrow \ \beta_8 = 43.306 \\
-                \\
-92.871 + 32.252 &= 88.280 + \beta_9 \ Sep  \\ 
-                &\rightarrow \ \beta_9 = 36.844 \\
-                \\
-92.871 + 36.170 &= 88.280 + \beta_10 \ Oct \\ 
-                &\rightarrow \ \beta_{10} = 40.762 \\
-                \\
-92.871 + 15.600 &= 88.280 + \beta_11 \ Nov \\ 
-                &\rightarrow \ \beta_{11} = 20.192 \\
-                \\
-92.871          &= 88.280 + \beta_12 \ Dec \\ 
-                &\rightarrow \ \beta_{12} = 4.592 \\
-                \\
+    92.871 + 1.935  &= 88.280 + \beta_2 \ Feb  \\ 
+                    &\rightarrow \ \beta_2 = 2.656 \\
+                    \\
+    92.871 + 26.184 &= 88.280 + \beta_3 \ Mar  \\ 
+                    &\rightarrow \ \beta_3 = 30.776 \\
+                    \\
+    92.871 + 41.452 &= 88.280 + \beta_4 \ Apr  \\ 
+                    &\rightarrow \ \beta_4 = 46.044 \\
+                    \\
+    92.871 + 46.786 &= 88.280 + \beta_5 \ May  \\ 
+                    &\rightarrow \ \beta_5 = 51.377 \\
+                    \\
+    92.871 + 46.263 &= 88.280 + \beta_6 \ Jun  \\ 
+                    &\rightarrow \ \beta_6 = 50.855 \\
+                    \\
+    92.871 + 40.937 &= 88.280 + \beta_7 \ Jul  \\ 
+                    &\rightarrow \ \beta_7 = 45.528 \\
+                    \\
+    92.871 + 38.714 &= 88.280 + \beta_8 \ Aug  \\ 
+                    &\rightarrow \ \beta_8 = 43.306 \\
+                    \\
+    92.871 + 32.252 &= 88.280 + \beta_9 \ Sep  \\ 
+                    &\rightarrow \ \beta_9 = 36.844 \\
+                    \\
+    92.871 + 36.170 &= 88.280 + \beta_10 \ Oct \\ 
+                    &\rightarrow \ \beta_{10} = 40.762 \\
+                    \\
+    92.871 + 15.600 &= 88.280 + \beta_11 \ Nov \\ 
+                    &\rightarrow \ \beta_{11} = 20.192 \\
+                    \\
+    92.871          &= 88.280 + \beta_12 \ Dec \\ 
+                    &\rightarrow \ \beta_{12} = 4.592 \\
+                    \\
 \end {align*}
 
 \begin {dmath}
@@ -172,10 +179,31 @@ Next we need to determine the $\beta$ values for Feb - Dec. Since we know the in
 \end {dmath}
 
 
-## 2(c)
+## 2(c) (6 marks)
 
-```{r my-plots, dev='png', fig.show='hide', echo=FALSE}
+\begin {equation}
+    \widehat{HOUSTNSA} = \underset{(1.377)}{119.3}
+\end {equation}
 
+```{r echo=FALSE}
+lmObj3 <- lm(HOUSTNSA ~ 1, data = db)
+# lmObj3 %>% summary()
+acf(
+    lmObj3$residuals,
+    type = "correlation",
+    lag.max = 36,
+    main = "Residuals ACF plot",
+    sub = "HOUSTNSA ~ c"
+)
+```
+
+<!-- Analysis -->
+The residual ACF plot for the linear model HOUSTNSA ~ 1 shows a few things.
+Firstly, each non seasonal lag (lag $\ne \{12, 24, 36\}$) have a large positive spike which is the tell tail sign of the existance of a trend.
+Secondly, the seasonal lags have large positive spikes which indicates that there is also seasonality in the data. 
+So we can attribute the gradual decrease in the lag values is because of trend while the scallop pattern is due to the seasonality. 
+
+```{r, echo = FALSE}
 acf(
     lmObj$residuals,
     type = "correlation",
@@ -183,24 +211,58 @@ acf(
     main = "Residuals ACF plot",
     sub = "HOUSTNSA ~ c + Jan + Feb + Mar + Apr + May + Jun + Jul + Aug + Sep + Oct + Nov"
 )
-
-acf(
-    lm(HOUSTNSA ~ 1, data = db)$residuals,
-    type = "correlation",
-    lag.max = 36,
-    main = "Residuals ACF plot",
-    sub = "HOUSTNSA ~ c"
-)
 ```
-<!-- Analysis -->
 
-## 2(d)
+<!-- Analysis -->
+The residual ACF plot for the linear model HOUSTNSA ~ c + Jan + Feb + Mar + Apr + May + Jun + Jul + Aug + Sep + Oct + Nov, shows a significant difference compared to the residual ACF plot for the linear model HOUSTNSA ~ 1. 
+The linear model HOUSTNSA ~ c + Jan + Feb + Mar + Apr + May + Jun + Jul + Aug + Sep + Oct + Nov, has no seasonality in the residual acf plot since the linear model has already captured it. What is remaining is the trend as depicted by decreasing values as the lags increase. Thus showing that the seasonal dummy variables have improved the model. 
+
+
+## 2(d) (9 marks)
 
 ```{r, echo=FALSE}
+AR_model <- arima(db$HOUSTNSA, order = c(2, 0, 0), xreg = db[3:13])
+# AR_model
+# ar()
 ```
+
+```{r, warning = FALSE, error = FALSE}
+
+# level of significance
+alpha_1 <- 0.05
+
+# unrestricted model
+fit1.UR <- lmObj
+# fit1.UR %>% summary()
+
+# restricted model
+fit1.R <- lmObj3
+# fit1.R %>% summary()
+
+# Sum of squared residuals
+SSR1.UR <- sum(resid(fit1.UR)^2)
+SSR1.R <- sum(resid(fit1.R)^2)
+
+# degrees of freedom
+DF1_num <- df.residual(fit1.R) - df.residual(fit1.UR) # no. of restrictions = 11
+DF1_denom <- df.residual(fit1.UR) # degrees of freedom of UR linear model = 746
+
+# test statistic
+tstat1 <- ((SSR1.R - SSR1.UR) / DF1_num) / ((SSR1.UR) / DF1_denom)
+# ~ F(5, 468)
+
+# critical value
+fcrit1 <- qf(1 - alpha_1 / 2, DF1_num, DF1_denom)
+
+# decision
+tstat1 > fcrit1
+```
+
+
+
 <!-- Analysis -->
 
-## 2(e)
+## 2(e) (8 marks)
 
 ```{r, echo=FALSE}
 ```
