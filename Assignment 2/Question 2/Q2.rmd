@@ -93,9 +93,10 @@ lmObj <- lm( # nolint
 \end{dmath}
 
 The above linear regression estimates the US monthly 'housing starts' based on the month that is being modelled.
-The intercept on its own implies that estimated 'housing starts' for the month of December, which means the other values are relative to the 'housing starts' of december.
-The variables in the linear regression are seasonal dummies which mean they only take a biary value (0 or 1). 
-The $\beta$ values for the seasonal dummies are the average change in the 'housing starts' relative to the month December. 
+The intercept $\beta_0 = 92.781$ is the estimated 'housing starts', on average, in US for the month of December.
+The variables in the linear regression are seasonal dummies which mean they only take a binary value (0 or 1). 
+The $\beta$ values for the seasonal dummies are the average change in the 'housing starts' relative to the month December.
+- January, on average, has 4.592 less 'housing starts' than the month of December, i.e. NUMBER of 'housing starts in January.
 
 ## 2(b) (4 marks)
 
