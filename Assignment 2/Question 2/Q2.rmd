@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 )
 
 db <- read.csv2(
-    file = "Assignment 2/Data/HOUSTNSA.csv",
+    file = "Data/HOUSTNSA.csv",
     sep = ","
 )
 
@@ -51,6 +51,19 @@ db$Aug <- ifelse(month(db$DATE) == 8, 1, 0) # nolint
 db$Sep <- ifelse(month(db$DATE) == 9, 1, 0) # nolint
 db$Oct <- ifelse(month(db$DATE) == 10, 1, 0) # nolint
 db$Nov <- ifelse(month(db$DATE) == 11, 1, 0) # nolint
+
+# Eviews code
+# series Jan = @month=1
+# series Feb = @month=2
+# series Mar = @month=3
+# series Apr = @month=4
+# series May = @month=5
+# series Jun = @month=6
+# series Jul = @month=7
+# series Aug = @month=8
+# series Sep = @month=9
+# series Oct = @month=10
+# series Nov = @month=11
 ```
 
 ## 2(a) (4 marks)
@@ -193,7 +206,7 @@ acf(
     type = "correlation",
     lag.max = 36,
     main = "Residuals ACF plot",
-    sub = "HOUSTNSA ~ c"
+    sub = "EQ(3)"
 )
 ```
 
@@ -209,22 +222,47 @@ acf(
     type = "correlation",
     lag.max = 36,
     main = "Residuals ACF plot",
-    sub = "HOUSTNSA ~ c + Jan + Feb + Mar + Apr + May + Jun + Jul + Aug + Sep + Oct + Nov"
+    sub = "EQ(1)"
 )
 ```
 
 <!-- Analysis -->
-The residual ACF plot for the linear model HOUSTNSA ~ c + Jan + Feb + Mar + Apr + May + Jun + Jul + Aug + Sep + Oct + Nov, shows a significant difference compared to the residual ACF plot for the linear model HOUSTNSA ~ 1. 
-The linear model HOUSTNSA ~ c + Jan + Feb + Mar + Apr + May + Jun + Jul + Aug + Sep + Oct + Nov, has no seasonality in the residual acf plot since the linear model has already captured it. What is remaining is the trend as depicted by decreasing values as the lags increase. Thus showing that the seasonal dummy variables have improved the model. 
+The residual ACF plot for the linear model EQ(1), shows a significant difference compared to the residual ACF plot for the linear model EQ(3). 
+The linear model EQ(1), has no seasonality in the residual acf plot since the linear model has already captured it. What is remaining is the trend as depicted by decreasing values as the lags increase. Thus showing that the seasonal dummy variables have improved the model. 
 
 
 ## 2(d) (9 marks)
 
 ```{r, echo=FALSE}
-AR_model <- arima(db$HOUSTNSA, order = c(2, 0, 0), xreg = db[3:13])
-# AR_model
-# ar()
+
+AR_2_dummies <- db %>% lm(formula = 
+    HOUSTNSA ~ Jan + Feb + Mar + Apr + May + Jun + Jul +
+        Aug + Sep + Oct + Nov + lag(HOUSTNSA, n = 1) + lag(HOUSTNSA, n = 2)
+)
+AR_2_no_dummies <- db %>% lm(
+    formula = HOUSTNSA ~ lag(HOUSTNSA, n = 1) + lag(HOUSTNSA, n = 2)
+)
+# AR_2_dummies %>% summary()
+AR_2_no_dummies %>% summary()
 ```
+
+
+\begin {dmath}
+    \widehat{HOUSTNSA} =      \underset{(2.165)}{-14.042}
+                        \ - \ \underset{(2.003)}{11.014}\ Jan
+                        \ - \ \underset{(2.091)}{20.084}\ Feb
+                        \ + \ \underset{(2.179)}{47.498}\ Mar
+                        \ + \ \underset{(2.652)}{40.081}\ Apr
+                        \ + \ \underset{(2.360)}{28.510}\ May
+                        \ + \ \underset{(2.198)}{21.153}\ Jun
+                        \ + \ \underset{(2.123)}{15.297}\ Jul
+                        \ + \ \underset{(2.067)}{17.297}\ Aug
+                        \ + \ \underset{(2.095)}{13.490}\ Sep
+                        \ + \ \underset{(2.049)}{22.810}\ Oct
+                        \ + \ \underset{(2.168)}{0.347}\ Nov
+                        \ + \ \underset{(0.036)}{0.775}\ HOUSTNSA_{t-1}
+                        \ + \ \underset{(0.036)}{0.177}\ HOUSTNSA_{t-2}
+\end {dmath}
 
 ```{r, warning = FALSE, error = FALSE}
 
@@ -232,11 +270,11 @@ AR_model <- arima(db$HOUSTNSA, order = c(2, 0, 0), xreg = db[3:13])
 alpha_1 <- 0.05
 
 # unrestricted model
-fit1.UR <- lmObj
+fit1.UR <- AR_2_dummies
 # fit1.UR %>% summary()
 
 # restricted model
-fit1.R <- lmObj3
+fit1.R <- AR_2_no_dummies
 # fit1.R %>% summary()
 
 # Sum of squared residuals
@@ -249,18 +287,44 @@ DF1_denom <- df.residual(fit1.UR) # degrees of freedom of UR linear model = 746
 
 # test statistic
 tstat1 <- ((SSR1.R - SSR1.UR) / DF1_num) / ((SSR1.UR) / DF1_denom)
-# ~ F(5, 468)
+# ~ F(11, 746)
 
 # critical value
 fcrit1 <- qf(1 - alpha_1 / 2, DF1_num, DF1_denom)
 
 # decision
-tstat1 > fcrit1
+# tstat1 > fcrit1
 ```
+<!-- H_0 &: \beta_1 = \beta_2 = \beta_3 = \beta_4 = \beta_5 = \beta_6 = \beta_7 = \beta_8 = \beta_9 = \beta_{10} = \beta_{11} = 0 \\ -->
+\begin{align*}
+    H_0 &: \underset{i \in \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11\}}{\forall} \beta_i = 0 \\
+    H_1 &: \underset{i \in \{1, 2, 3, 4, 5\}}{\exists} {\beta_i} \neq 0 \text { at least one regressor coef is zero}\\
+    \text {Significance Level} &: \alpha = 0.05 \\
+    \text {Unresticted Model} &: \widehat{HOUSTNSA} = \underset{(2.165)}{-14.042}
+                                                    \ - \ \underset{(2.003)}{11.014}\ Jan
+                                                    \ - \ \underset{(2.091)}{20.084}\ Feb\\
+                                                    &\ + \ \underset{(2.179)}{47.498}\ Mar
+                                                    \ + \ \underset{(2.652)}{40.081}\ Apr
+                                                    \ + \ \underset{(2.360)}{28.510}\ May\\
+                                                    &\ + \ \underset{(2.198)}{21.153}\ Jun
+                                                    \ + \ \underset{(2.123)}{15.297}\ Jul
+                                                    \ + \ \underset{(2.067)}{17.297}\ Aug\\
+                                                    &\ + \ \underset{(2.095)}{13.490}\ Sep
+                                                    \ + \ \underset{(2.049)}{22.810}\ Oct
+                                                    \ + \ \underset{(2.168)}{0.347}\ Nov\\
+                                                    &\ + \ \underset{(0.036)}{0.775}\ HOUSTNSA_{t-1}
+                                                    \ + \ \underset{(0.036)}{0.177}\ HOUSTNSA_{t-2} \\
+    \text {Resticted Model} &: \widehat{HOUSTNSA} = \underset{(1.970)}{14.598} 
+                                                    \ + \ \underset{(0.035)}{1.110} \ HOUSTNSA_{t-1}
+                                                    \ - \ \underset{(0.035)}{0.232} \ HOUSTNSA_{t-2}\\
+    \text {Test stat and null dist} &: \frac{(SSR_R - SSR_{UR})}{SSR_{UR}} \frac{(n-k-1)}{q} \sim F_{(q, n-k-1)} = F_{5, 468} \\
+    F_{calc} &= `r tstat1` \\
+    F_{crit} &= `r fcrit1` \\
+    \text {Decision rule} &: \text {reject $H_0$ if $t_{calc} > F_{crit}$} \\
+    \text {Decision} &: \text {Since `r tstat1` > `r fcrit1`, reject $H_0$} \\
+\end{align*}
 
-
-
-<!-- Analysis -->
+In conclusion, at 0.05 level of significance, we reject the null hypothesis that the seasonal dummies (Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct) are jointly insignificant in effecting the 'Housing Starts' in favour of the alternative hypothesis that at least one of these variables are significant. >
 
 ## 2(e) (8 marks)
 
