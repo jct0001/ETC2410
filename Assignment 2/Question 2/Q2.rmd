@@ -218,11 +218,11 @@ pacf(
 ```
 
 <!-- Analysis -->
-The residual ACF plot for the linear model HOUSTNSA ~ 1 shows a few things.
-Firstly, each non seasonal lag (lag $\ne \{12, 24, 36\}$) have a large positive spike which is the tell tail sign of the existance of a trend.
+The residual ACF plot for the linear model EQ(3) shows a few things.
+Firstly, each non-seasonal lag (lag $\ne \{12, 24, 36\}$) have a large positive spike which indicates the existence of a trend.
 Secondly, the seasonal lags have large positive spikes which indicates that there is also seasonality in the data. 
 So we can attribute the gradual decrease in the lag values is because of trend while the scallop pattern is due to the seasonality. 
-As a result of the trend and seasonality it can safely be said  that there is no stationarity in the data and by failing the prerequisite its also not white noise.
+As a result of the trend and seasonality it can safely be said that there is no stationarity in the data and thus implying that the error term is not white noise.
 
 ```{r, echo = FALSE}
 acf(
@@ -241,9 +241,9 @@ pacf(
 ```
 
 <!-- Analysis -->
-The residual ACF plot for the linear model EQ(1), shows a significant difference compared to the residual ACF plot for the linear model EQ(3). 
-The linear model EQ(1), has no seasonality in the residual acf plot since the linear model has already captured it. What is remaining is the trend as depicted by decreasing values as the lags increase. Thus showing that the seasonal dummy variables have improved the model. 
-Despite the improvement, there is still a trend which means that there is no stationarity in the data and by failing the prerequisite its also not white noise.
+The residual ACF plot for the linear model EQ(1) shows a significant difference compared to the residual ACF plot for the linear model EQ(3). 
+The linear model EQ(1) has no seasonality in the residual ACF plot since the linear model has already captured it. What is remaining is the trend as depicted by decreasing values as the lags increase, showing that the seasonal dummy variables have improved the model. 
+Despite the improvement, there is still a trend which means that there is no stationarity in the data and thus implying the error term is not white noise.
 
 
 ## 2(d) (9 marks)
