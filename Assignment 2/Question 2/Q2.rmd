@@ -324,7 +324,7 @@ fcrit1 <- qf(1 - alpha_1 / 2, DF1_num, DF1_denom)
     \text {Decision} &: \text {Since `r tstat1` > `r fcrit1`, reject $H_0$} \\
 \end{align*}
 
-In conclusion, at 0.05 level of significance, we reject the null hypothesis that the seasonal dummies (Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct) are jointly insignificant in effecting the 'Housing Starts' in favour of the alternative hypothesis that at least one of these variables are significant. >
+In conclusion, at 0.05 level of significance, we reject the null hypothesis that the seasonal dummies (Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct) are jointly insignificant in effecting the 'Housing Starts' in favour of the alternative hypothesis that at least one of these variables are significant. 
 
 ## 2(e) (8 marks)
 
