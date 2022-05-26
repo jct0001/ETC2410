@@ -208,6 +208,12 @@ acf(
     main = "Residuals ACF plot",
     sub = "EQ(3)"
 )
+pacf(
+    lmObj3$residuals,
+    lag.max = 36,
+    main = "Residuals PACF plot",
+    sub = "EQ(3)"
+)
 ```
 
 <!-- Analysis -->
@@ -215,6 +221,7 @@ The residual ACF plot for the linear model HOUSTNSA ~ 1 shows a few things.
 Firstly, each non seasonal lag (lag $\ne \{12, 24, 36\}$) have a large positive spike which is the tell tail sign of the existance of a trend.
 Secondly, the seasonal lags have large positive spikes which indicates that there is also seasonality in the data. 
 So we can attribute the gradual decrease in the lag values is because of trend while the scallop pattern is due to the seasonality. 
+As a result of the trend and seasonality it can safely be said  that there is no stationarity in the data and by failing the prerequisite its also not white noise.
 
 ```{r, echo = FALSE}
 acf(
@@ -224,11 +231,18 @@ acf(
     main = "Residuals ACF plot",
     sub = "EQ(1)"
 )
+pacf(
+    lmObj$residuals,
+    lag.max = 36,
+    main = "Residuals PACF plot",
+    sub = "EQ(1)"
+)
 ```
 
 <!-- Analysis -->
 The residual ACF plot for the linear model EQ(1), shows a significant difference compared to the residual ACF plot for the linear model EQ(3). 
 The linear model EQ(1), has no seasonality in the residual acf plot since the linear model has already captured it. What is remaining is the trend as depicted by decreasing values as the lags increase. Thus showing that the seasonal dummy variables have improved the model. 
+Despite the improvement, there is still a trend which means that there is no stationarity in the data and by failing the prerequisite its also not white noise.
 
 
 ## 2(d) (9 marks)
@@ -321,7 +335,7 @@ fcrit1 <- qf(1 - alpha_1 / 2, DF1_num, DF1_denom)
     \text {Test stat and null dist} &: \frac{(SSR_R - SSR_{UR})}{SSR_{UR}} \frac{(n-k-1)}{q} \sim F_{(q, n-k-1)} = F_{11, 742} \\
     F_{calc} &= `r tstat1` \\
     F_{crit} &= `r fcrit1` \\
-    \text {Decision rule} &: \text {reject $H_0$ if $t_{calc} > F_{crit}$} \\
+    \text {Decision rule} &: \text {reject $H_0$ if $F_{calc} > F_{crit}$} \\
     \text {Decision} &: \text {Since `r tstat1` > `r fcrit1`, reject $H_0$} \\
 \end{align*}
 
@@ -435,7 +449,7 @@ qAR_2 <- db %>% lm(
     formula =
         HOUSTNSA ~ alpha_1 + alpha_2 + alpha_3 + lag(HOUSTNSA, n = 1) + lag(HOUSTNSA, n = 2)
 )
-qAR_2 %>% summary()
+# qAR_2 %>% summary()
 ```
 
 
@@ -464,15 +478,17 @@ tstat2 <- ((SSR2.R - SSR2.UR) / 3) / ((SSR2.UR) / (758 - 5 - 1))
 
 # critical value
 fcrit2 <- qf(1 - alpha_1 / 2, 3, 758 - 5 - 1)
-qf(1 - alpha_1 / 2, 3, 120)
+# qf(1 - alpha_1 / 2, 3, 120)
 ```
 
 \begin{align*}
     H_0 &: \underset{i \in \{0, 1, 2, 3\}}{\forall} \alpha_i = 0 \\
     H_1 &: \underset{i \in \{0, 1, 2, 3\}}{\exists} {\alpha_i} \neq 0 \text { at least one regressor coef is zero}\\
-    \text {Test stat and null dist} &: \frac{(SSR_R - SSR_{UR})}{SSR_{UR}} \frac{(n-k-1)}{q} \sim F_{(q, n-k-1)} = F_{8, 742} \\
+    \text {Test stat and null dist} &: \frac{(SSR_R - SSR_{UR})}{SSR_{UR}} \frac{(n-k-1)}{q} \sim F_{(q, n-k-1)} = F_{3, 752} \\
     F_{calc} &= `r tstat2` \\
-    F_{crit} &= 2.02 \\
-    \text {Decision rule} &: \text {reject $H_0$ if $t_{calc} > F_{crit}$} \\
-    \text {Decision} &: \text {Since `r tstat2` > 2.02, reject $H_0$} \\
+    F_{crit} &= `r fcrit2` \\
+    \text {Decision rule} &: \text {reject $H_0$ if $F_{calc} > F_{crit}$} \\
+    \text {Decision} &: \text {Since `r tstat2` > `r fcrit2`, reject $H_0$} \\
 \end{align*}
+
+In conclusion, at 0.05 level of significance, we reject the null hypothesis that there is only quarterly seasonality in the AR(2) model in favour of the alternative hypothesis that there may also be monthly seasonality in the AR(2) model. 
