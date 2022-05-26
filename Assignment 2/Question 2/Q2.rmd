@@ -77,7 +77,7 @@ lmObj <- lm( # nolint
 ```
 
 <!-- Analysis -->
-\begin {dmath}
+\begin{dmath}
     \widehat{HOUSTNSA} =      \underset{(4.196)}{92.871}
                         \ - \ \underset{(5.911)}{4.592}\ Jan
                         \ - \ \underset{(5.911)}{1.935}\ Feb
@@ -90,7 +90,7 @@ lmObj <- lm( # nolint
                         \ + \ \underset{(5.934)}{32.252}\ Sep
                         \ + \ \underset{(5.934)}{36.170}\ Oct
                         \ + \ \underset{(5.934)}{15.600}\ Nov
-\end {dmath}
+\end{dmath}
 
 The above linear regression estimates the US monthly 'housing starts' based on the month that is being modelled.
 The intercept on its own implies that estimated 'housing starts' for the month of December, which means the other values are relative to the 'housing starts' of december.
@@ -140,7 +140,7 @@ From equation 1 we can determine the values of each month because of the dummy v
 $92.871 - 4.592  = c \rightarrow c = 88.280$, where the LHS is the month of Jan from calculated from equation 1. 
 
 Next we need to determine the $\beta$ values for Feb - Dec. Since we know the intercept for the new equation, we can substitute it in.
-\begin {align*}
+\begin{align*}
     92.871 + 1.935  &= 88.280 + \beta_2 \ Feb  \\ 
                     &\rightarrow \ \beta_2 = 2.656 \\
                     \\
@@ -174,9 +174,9 @@ Next we need to determine the $\beta$ values for Feb - Dec. Since we know the in
     92.871          &= 88.280 + \beta_{12} \ Dec \\ 
                     &\rightarrow \ \beta_{12} = 4.592 \\
                     \\
-\end {align*}
+\end{align*}
 
-\begin {dmath}
+\begin{dmath}
     \widehat{HOUSTNSA} =      88.280
                         \ + \ 2.656 \ Feb
                         \ + \ 30.776\ Mar
@@ -189,7 +189,7 @@ Next we need to determine the $\beta$ values for Feb - Dec. Since we know the in
                         \ + \ 40.762\ Oct
                         \ + \ 20.192\ Nov
                         \ + \ 4.592 \ Dec
-\end {dmath}
+\end{dmath}
 
 
 ## 2(c) (6 marks)
@@ -235,9 +235,10 @@ The linear model EQ(1), has no seasonality in the residual acf plot since the li
 
 ```{r, echo=FALSE}
 
-AR_2_dummies <- db %>% lm(formula = 
-    HOUSTNSA ~ Jan + Feb + Mar + Apr + May + Jun + Jul +
-        Aug + Sep + Oct + Nov + lag(HOUSTNSA, n = 1) + lag(HOUSTNSA, n = 2)
+AR_2_dummies <- db %>% lm(
+    formula =
+        HOUSTNSA ~ Jan + Feb + Mar + Apr + May + Jun + Jul +
+            Aug + Sep + Oct + Nov + lag(HOUSTNSA, n = 1) + lag(HOUSTNSA, n = 2)
 )
 AR_2_no_dummies <- db %>% lm(
     formula = HOUSTNSA ~ lag(HOUSTNSA, n = 1) + lag(HOUSTNSA, n = 2)
@@ -247,7 +248,7 @@ AR_2_no_dummies <- db %>% lm(
 ```
 
 
-\begin {dmath}
+\begin{dmath}
     \widehat{HOUSTNSA} =      \underset{(2.165)}{-14.042}
                         \ - \ \underset{(2.003)}{11.014}\ Jan
                         \ - \ \underset{(2.091)}{20.084}\ Feb
@@ -262,7 +263,7 @@ AR_2_no_dummies <- db %>% lm(
                         \ + \ \underset{(2.168)}{0.347}\ Nov
                         \ + \ \underset{(0.036)}{0.775}\ HOUSTNSA_{t-1}
                         \ + \ \underset{(0.036)}{0.177}\ HOUSTNSA_{t-2}
-\end {dmath}
+\end{dmath}
 
 ```{r, warning = FALSE, error = FALSE}
 
@@ -283,7 +284,7 @@ SSR1.R <- sum(resid(fit1.R)^2)
 
 # degrees of freedom
 DF1_num <- df.residual(fit1.R) - df.residual(fit1.UR) # no. of restrictions = 11
-DF1_denom <- df.residual(fit1.UR) # degrees of freedom of UR linear model = 746
+DF1_denom <- df.residual(fit1.UR) # degrees of freedom of UR linear model = 742
 
 # test statistic
 tstat1 <- ((SSR1.R - SSR1.UR) / DF1_num) / ((SSR1.UR) / DF1_denom)
@@ -317,7 +318,7 @@ fcrit1 <- qf(1 - alpha_1 / 2, DF1_num, DF1_denom)
     \text {Resticted Model} &: \widehat{HOUSTNSA} = \underset{(1.970)}{14.598} 
                                                     \ + \ \underset{(0.035)}{1.110} \ HOUSTNSA_{t-1}
                                                     \ - \ \underset{(0.035)}{0.232} \ HOUSTNSA_{t-2}\\
-    \text {Test stat and null dist} &: \frac{(SSR_R - SSR_{UR})}{SSR_{UR}} \frac{(n-k-1)}{q} \sim F_{(q, n-k-1)} = F_{5, 468} \\
+    \text {Test stat and null dist} &: \frac{(SSR_R - SSR_{UR})}{SSR_{UR}} \frac{(n-k-1)}{q} \sim F_{(q, n-k-1)} = F_{11, 742} \\
     F_{calc} &= `r tstat1` \\
     F_{crit} &= `r fcrit1` \\
     \text {Decision rule} &: \text {reject $H_0$ if $t_{calc} > F_{crit}$} \\
@@ -328,6 +329,150 @@ In conclusion, at 0.05 level of significance, we reject the null hypothesis that
 
 ## 2(e) (8 marks)
 
+\begin{dmath}
+    \widehat{HOUSTNSA} =      \underset{(2.264)}{-1.503}
+                        \ + \ \underset{(1.590)}{17.299}\ Q1
+                        \ + \ \underset{(1.772)}{16.273}\ Q2
+                        \ + \ \underset{(1.534)}{6.685}\ Q3
+                        \ + \ \underset{(0.040)}{1.007}\ HOUSTNSA_{t-1}
+                        \ - \ \underset{(0.039)}{0.079}\ HOUSTNSA_{t-2}
+\end{dmath}
+
+### Monthly Model (Unresticted):
+\begin{dmath}
+    LHS =
+                        \beta_0
+                        \ + \ \beta_1 \ Jan 
+                        \ + \ \beta_2 \ Feb 
+                        \ + \ \beta_3 \ Mar 
+                        \ + \ \beta_4 \ Apr 
+                        \ + \ \beta_5 \ May 
+                        \ + \ \beta_6 \ Jun 
+                        \ + \ \beta_7 \ Jul 
+                        \ + \ \beta_8 \ Aug 
+                        \ + \ \beta_9 \ Sep 
+                        \ + \ \beta_{10} \ Oct 
+                        \ + \ \beta_{11} \ Nov 
+                        \ + \ \beta_{13} \ HOUSTNSA_{t-1}
+                        \ + \ \beta_{14} \ HOUSTNSA_{t-2}
+\end{dmath}
+
+### Quarterly Model:
+\begin{dmath}
+    RHS =
+                        \alpha_0
+                        \ + \ \alpha_1 \ Q1 
+                        \ + \ \alpha_2 \ Q2 
+                        \ + \ \alpha_3 \ Q3  
+                        \ + \ \alpha_4 \ HOUSTNSA_{t-1}
+                        \ + \ \alpha_5 \ HOUSTNSA_{t-2}
+\end{dmath}
+
+### LHS == RHS
+\begin{align*}
+    \widehat{HOUSTNSA} &=
+            \beta_0
+            \ + \ \beta_1 \ Jan 
+            \ + \ \beta_2 \ Feb 
+            \ + \ \beta_3 \ Mar
+            \ + \ \beta_4 \ Apr 
+            \ + \ \beta_5 \ May 
+            \ + \ \beta_6 \ Jun \\
+            &\ + \ \beta_7 \ Jul 
+            \ + \ \beta_8 \ Aug 
+            \ + \ \beta_9 \ Sep
+            \ + \ \beta_{10} \ Oct 
+            \ + \ \beta_{11} \ Nov\\ 
+            &\ + \ \beta_{13} \ HOUSTNSA_{t-1}
+            \ + \ \beta_{14} \ HOUSTNSA_{t-2}\\
+    \widehat{HOUSTNSA} &=
+                        \alpha_0
+                        \ + \ \alpha_1 \ Q1 
+                        \ + \ \alpha_2 \ Q2 
+                        \ + \ \alpha_3 \ Q3 
+                        \ + \ \alpha_4 \ HOUSTNSA_{t-1}
+                        \ + \ \alpha_5 \ HOUSTNSA_{t-2}\\
+\end{align*}
+
+
+\begin{align*}
+    \alpha_0 &= \beta_0 + \beta_{10} + \beta_{11}\\
+    \alpha_1 &= \beta_1 + \beta_2 + \beta_3\\
+    \alpha_2 &= \beta_4 + \beta_5 + \beta_6\\
+    \alpha_3 &= \beta_7 + \beta_8 + \beta_9\\
+    \alpha_4 &= \beta_{13}\\
+    \alpha_5 &= \beta_{14}\\
+\end{align*}
+
+### Quarterly Model (Restricted):
+\begin{dmath}
+    RHS =
+                        \beta_0 + \beta_{10} + \beta_{11}
+                        \ + \ (\beta_1 + \beta_2 + \beta_3) \ Q1 
+                        \ + \ (\beta_4 + \beta_5 + \beta_6) \ Q2 
+                        \ + \ (\beta_7 + \beta_8 + \beta_9) \ Q3
+                        \ + \ \beta_{13} \ HOUSTNSA_{t-1}
+                        \ + \ \beta_{14} \ HOUSTNSA_{t-2}
+\end{dmath}
+
 ```{r, echo=FALSE}
+# q_db <- tibble(
+#     Date = db$DATE,
+#     HOUSTNSA = db$HOUSTNSA,
+#     Q1 = ifelse(quarter(db$DATE) == 1, 1, 0),
+#     Q2 = ifelse(quarter(db$DATE) == 2, 1, 0),
+#     Q3 = ifelse(quarter(db$DATE) == 3, 1, 0)
+# )
+# q_db %>% head()
 ```
-<!-- Analysis -->
+
+```{r}
+alpha_1 <- (db$Jan + db$Feb + db$Mar)
+alpha_2 <- (db$Apr + db$May + db$Jun)
+alpha_3 <- (db$Jul + db$Aug + db$Sep)
+
+qAR_2 <- db %>% lm(
+    formula =
+        HOUSTNSA ~ alpha_1 + alpha_2 + alpha_3 + lag(HOUSTNSA, n = 1) + lag(HOUSTNSA, n = 2)
+)
+qAR_2 %>% summary()
+```
+
+
+```{r}
+alpha_1 <- 0.05
+
+# unrestricted model
+fit2.UR <- AR_2_dummies
+# fit1.UR %>% summary()
+
+# restricted model
+fit2.R <- qAR_2
+# fit1.R %>% summary()
+
+# Sum of squared residuals
+SSR2.UR <- sum(resid(fit2.UR)^2)
+SSR2.R <- sum(resid(fit2.R)^2)
+
+# degrees of freedom
+# DF2_num <- df.residual(fit2.R) - df.residual(fit2.UR) # no. of restrictions = 3
+# DF2_denom <- df.residual(fit2.UR) # degrees of freedom of UR linear model = 742
+
+# test statistic
+tstat2 <- ((SSR2.R - SSR2.UR) / 3) / ((SSR2.UR) / (758 - 5 - 1))
+# ~ F(3, 752)
+
+# critical value
+fcrit2 <- qf(1 - alpha_1 / 2, 3, 758 - 5 - 1)
+qf(1 - alpha_1 / 2, 3, 120)
+```
+
+\begin{align*}
+    H_0 &: \underset{i \in \{0, 1, 2, 3\}}{\forall} \alpha_i = 0 \\
+    H_1 &: \underset{i \in \{0, 1, 2, 3\}}{\exists} {\alpha_i} \neq 0 \text { at least one regressor coef is zero}\\
+    \text {Test stat and null dist} &: \frac{(SSR_R - SSR_{UR})}{SSR_{UR}} \frac{(n-k-1)}{q} \sim F_{(q, n-k-1)} = F_{8, 742} \\
+    F_{calc} &= `r tstat2` \\
+    F_{crit} &= 2.02 \\
+    \text {Decision rule} &: \text {reject $H_0$ if $t_{calc} > F_{crit}$} \\
+    \text {Decision} &: \text {Since `r tstat2` > 2.02, reject $H_0$} \\
+\end{align*}
