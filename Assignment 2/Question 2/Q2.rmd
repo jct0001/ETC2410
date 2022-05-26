@@ -165,13 +165,13 @@ Next we need to determine the $\beta$ values for Feb - Dec. Since we know the in
     92.871 + 32.252 &= 88.280 + \beta_9 \ Sep  \\ 
                     &\rightarrow \ \beta_9 = 36.844 \\
                     \\
-    92.871 + 36.170 &= 88.280 + \beta_10 \ Oct \\ 
+    92.871 + 36.170 &= 88.280 + \beta_{10} \ Oct \\ 
                     &\rightarrow \ \beta_{10} = 40.762 \\
                     \\
-    92.871 + 15.600 &= 88.280 + \beta_11 \ Nov \\ 
+    92.871 + 15.600 &= 88.280 + \beta_{11} \ Nov \\ 
                     &\rightarrow \ \beta_{11} = 20.192 \\
                     \\
-    92.871          &= 88.280 + \beta_12 \ Dec \\ 
+    92.871          &= 88.280 + \beta_{12} \ Dec \\ 
                     &\rightarrow \ \beta_{12} = 4.592 \\
                     \\
 \end {align*}
@@ -243,7 +243,7 @@ AR_2_no_dummies <- db %>% lm(
     formula = HOUSTNSA ~ lag(HOUSTNSA, n = 1) + lag(HOUSTNSA, n = 2)
 )
 # AR_2_dummies %>% summary()
-AR_2_no_dummies %>% summary()
+# AR_2_no_dummies %>% summary()
 ```
 
 
