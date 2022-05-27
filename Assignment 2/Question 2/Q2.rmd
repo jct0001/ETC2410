@@ -1,6 +1,6 @@
 ---
-title: "ETC2410 Assignment 2"
-author: "Alex Wong, Chelaka Paranahewa, Harjot Channa, Jonas Tiong"
+# title: "ETC2410 Assignment 2"
+# author: "Alex Wong, Chelaka Paranahewa, Harjot Channa, Jonas Tiong"
 
 output: 
     pdf_document:
