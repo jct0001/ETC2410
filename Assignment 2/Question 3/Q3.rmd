@@ -2,6 +2,8 @@
 head-includes:
     - \usepackage{mathtools}
 output: pdf_document
+mainfont: Times New Roman
+fontsize: 12pt
 ---
 # Question 3
 
